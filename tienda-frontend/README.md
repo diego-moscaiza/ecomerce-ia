@@ -21,16 +21,20 @@ Cualquier activo estático, como imágenes, se puede colocar en el directorio `p
 
 ## 🧞 Comandos
 
-Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal:
+Primero debe de instalar pnpm, que es una alternativa a npm.
+
+`corepack enable pnpm`
+
+Ahora estos los comandos se ejecutan desde la raíz del proyecto, desde una terminal:
 
 | Dominio                   | Acción                                                                         |
 | :------------------------ | :----------------------------------------------------------------------------- |
-| `npm install`             | Instala dependencias                                                           |
-| `npm run dev`             | Inicia el servidor de desarrollo local en `localhost:4321`                     |
-| `npm run build`           | Construya su sitio de producción para `./dist/`                                |
-| `npm run preview`         | Obtenga una vista previa de su compilación localmente, antes de implementarla. |
-| `npm run astro ...`       | Ejecute comandos CLI como `astro add`, `astro check`                           |
-| `npm run astro -- --help` | Obtenga ayuda para usar Astro CLI                                              |
+| `pnpm install`             | Instala dependencias                                                           |
+| `pnpm run dev`             | Inicia el servidor de desarrollo local en `localhost:4321`                     |
+| `pnpm run build`           | Construya su sitio de producción para `./dist/`                                |
+| `pnpm run preview`         | Obtenga una vista previa de su compilación localmente, antes de implementarla. |
+| `pnpm run astro ...`       | Ejecute comandos CLI como `astro add`, `astro check`                           |
+| `pnpm run astro -- --help` | Obtenga ayuda para usar Astro CLI                                              |
 
 ## 👀 ¿Querer aprender más?
 
