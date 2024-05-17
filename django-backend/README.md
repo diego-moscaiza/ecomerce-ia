@@ -33,15 +33,19 @@ Instalamos Django con la siguiente línea:
 Comprobamos si ya está instalado:
 `django-admin --version`
 
-Y te aparecerá la ersión de Django que tienes instaladas.
+Y te aparecerá la versión de Django que tienes instaladas.
 
-### 4.- Crear proyecto
+### 4.- Crear proyecto base de Django
 
-Ingresamos este comando:
-`django-admin startproject project .`
+Para configurar todos nuestro proyecto es necesario crear un proyecto base
 
-El nombre se ingresa antes del punto.
-El punto nos sirve para crear el proyecto fuera de la carpeta "venv".
+El comando para crearlo empieza así:
+`django-admin startproject`
+
+Luego se coloca el nombre del proyecto base y un punto para crearlo fuera de la carpeta "venv"
+
+Y quedaría de esta forma: `django-admin startproject admin .`
+
 
 ### 5.- Ejecutar el servidor del proyecto
 
@@ -59,7 +63,7 @@ En este caso se llama "tasks" o tareas.
 Ingresamos este comando:
 `pip install djangorestframework`
 
-### 8.- Integramos el modulo para conexión de servidores
+### 8.- Integramos el módulo para conexión de servidores
 
 Ingresamos este comando:
 `pip install django-cors-headers`
