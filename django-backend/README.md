@@ -48,9 +48,10 @@ El punto nos sirve para crear el proyecto fuera de la carpeta "venv".
 Ingresamos este comando:
 `python manage.py runserver`
 
-### 6.- Creamos una aplicacion de tareas
+### 6.- Creamos una aplicacion
 
-Ingresamos este comando:
+Ingresamos este comando y la ultima palabra es el nombre de la aplicación.
+En este caso se llama "tasks" o tareas.
 `python manage.py startapp tasks`
 
 ### 7.- Instalamos Django REST Framework
