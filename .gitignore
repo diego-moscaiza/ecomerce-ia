@@ -28,5 +28,5 @@ tienda-frontend/.idea/
 
 # BACKEND
 
-django_backend/admin_project/__pycache__/
-django_backend/clientes/__pycache__/
+django-backend/admin_project/__pycache__/
+django-backend/clientes/__pycache__/
