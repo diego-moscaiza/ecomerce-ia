@@ -25,16 +25,8 @@ tienda-frontend/.DS_Store
 # jetbrains setting folder
 tienda-frontend/.idea/
 
-<<<<<<< HEAD
-# BACKEND
-
-django_backend/admin_project__pycache__
-django_backend/clientes/__pycache__
-
-=======
 
 # BACKEND
 
 django_backend/admin_project/__pycache__/
 django_backend/clientes/__pycache__/
->>>>>>> dev-diego
