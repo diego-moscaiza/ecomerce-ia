@@ -30,3 +30,5 @@ tienda-frontend/.idea/
 
 django-backend/admin_project/__pycache__/
 django-backend/clientes/__pycache__/
+django-backend/clientes/migrations/__pycache__/
+
