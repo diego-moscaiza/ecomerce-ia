@@ -32,3 +32,6 @@ django-backend/admin_project/__pycache__/
 django-backend/clientes/__pycache__/
 django-backend/clientes/migrations/__pycache__/
 
+django-backend/productos/__pycache__/
+django-backend/productos/migrations/__pycache__/
+
