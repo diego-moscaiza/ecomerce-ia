@@ -38,3 +38,6 @@ django-backend/productos/migrations/__pycache__/
 
 django-backend/administrador/__pycache__/
 django-backend/administrador/migrations/__pycache__/
+
+django-backend/metodo_pago/__pycache__/
+django-backend/metodo_pago/migrations/__pycache__/
