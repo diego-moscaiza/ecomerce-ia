@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'categoria',
     'proveedor',
     'inventario',
+    'estante',
 ]
 
 MIDDLEWARE = [
