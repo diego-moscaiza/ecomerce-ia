@@ -3,13 +3,12 @@ from django.db import models
 # Create your models here.
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
-    # id_inventario = models.IntegerField(null=True)
-    # id_proveedor = models.IntegerField(null=True)
-    # id_categoria = models.IntegerField(null=True)
-    nombre = models.CharField(max_length=50, null=True)
-    descripcion = models.CharField(max_length=100, null=True)
-    cantidad = models.IntegerField(null=True)
-    precio = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    estado = models.CharField(max_length=1, null=True)
-    
-    
+    # id_inventario = models.ForeignKey('inventario.Inventario', on_delete=models.CASCADE)
+    # id_proveedor = models.ForeignKey('proveedor.Proveedor', on_delete=models.CASCADE)
+    # id_categoria = models.ForeignKey('categoria.Categoria', on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=100, blank=True)
+    cantidad = models.IntegerField(default=0)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    estado = models.IntegerField(default=0)
+    #img = models.ImageField(upload_to='products/')
