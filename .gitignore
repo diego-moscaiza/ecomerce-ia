@@ -44,3 +44,6 @@ django-backend/metodo_pago/migrations/__pycache__/
 
 django-backend/categoria/__pycache__/
 django-backend/categoria/migrations/__pycache__/
+
+django-backend/proveedor/__pycache__/
+django-backend/proveedor/migrations/__pycache__/
