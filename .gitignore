@@ -47,3 +47,6 @@ django-backend/categoria/migrations/__pycache__/
 
 django-backend/proveedor/__pycache__/
 django-backend/proveedor/migrations/__pycache__/
+
+django-backend/inventario/__pycache__/
+django-backend/inventario/migrations/__pycache__/
