@@ -41,3 +41,15 @@ django-backend/administrador/migrations/__pycache__/
 
 django-backend/metodo_pago/__pycache__/
 django-backend/metodo_pago/migrations/__pycache__/
+
+django-backend/categoria/__pycache__/
+django-backend/categoria/migrations/__pycache__/
+
+django-backend/proveedor/__pycache__/
+django-backend/proveedor/migrations/__pycache__/
+
+django-backend/inventario/__pycache__/
+django-backend/inventario/migrations/__pycache__/
+
+django-backend/estante/__pycache__/
+django-backend/estante/migrations/__pycache__/
