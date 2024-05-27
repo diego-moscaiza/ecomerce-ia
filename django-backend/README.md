@@ -55,7 +55,9 @@ Ingresamos este comando:
 ### 6.- Creamos una aplicacion
 
 Ingresamos este comando y la ultima palabra es el nombre de la aplicación.
-En este caso se llama "tasks" o tareas.
+`python manage.py startapp`
+
+Por ejemplo, podemos crear la app llamada "tasks" o tareas.
 `python manage.py startapp tasks`
 
 ### 7.- Instalamos Django REST Framework
