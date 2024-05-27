@@ -4,14 +4,21 @@ import Layout from "../layouts/MainLayout.astro";
 
 <Layout title="Cesta">
     <div
-        class="w-min-90 max-w-screen-xl mx-auto md:grid md:grid-cols-2 md:gap-x-4rem"
+        class="mt-5 min-w-[90%] max-w-screen-xl mx-auto md:grid md:grid-cols-2 md:gap-[8rem]"
     >
-        <main class="block">
-            <h3 class="text-3.2xl leading-1.2">Productos seleccionados</h3>
-            <article></article>
+        <main class="bloc">
+            <article class="bg-yellow-50 border-gray-300 mb-8">
+                <h3 class="mt-4 ml-8 mb-6 text-3.2xl leading-1.2">Productos seleccionados</h3>
+                <p class="text-center">Seleccionar todos los productos</p>
+            </article>
+            <article class="bg-yellow-50 border-gray-300 mb-8">
+                <h3 class="mt-4 ml-8 mb-6 text-3.2xl leading-1.2">Productos seleccionados</h3>
+                <p class="text-center">Seleccionar todos los productos</p>
+                <div class=""></div>
+            </article>
         </main>
-        <aside>
-            <h3 class="text-3.2xl leading-1.2">Resumen</h3>
+        <aside class="bg-yellow-50">
+            <h3 class="mt-4 ml-8 text-3.2xl leading-1.2">Resumen</h3>
         </aside>
     </div>
 </Layout>
