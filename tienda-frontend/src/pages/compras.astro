@@ -4,8 +4,115 @@ import Layout from "../layouts/MainLayout.astro";
 
 <Layout title="Compras">
     <header>
-        <h2 class="mt-8 mb-8 text-2xl text-center font-semibold">
+        <h2 class="mt-8 mb-0 text-2xl text-center font-semibold">
             CONFIRMAR COMPRAS
         </h2>
     </header>
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Información Personal</h2>
+
+        <div class="space-y-3">
+            <input
+                class="w-full p-2 border border-gray-300 rounded"
+                type="text"
+                placeholder="Nombre del cliente"
+            />
+            <input
+                class="w-full p-2 border border-gray-300 rounded"
+                type="text"
+                placeholder="+51 987 623 418"
+            />
+            <input
+                class="w-full p-2 border border-gray-300 rounded"
+                type="text"
+                placeholder="Wall Street Avenue"
+            />
+        </div>
+
+        <div class="mt-6">
+            <label class="block text-sm font-bold mb-2">Método de pago</label>
+            <select
+                class="w-full p-2 border border-gray-300 rounded"
+                title="a"
+                id="payment-method"
+                onchange="showCardDetails()"
+            >
+                <option value="">Selecciona un método de pago</option>
+                <option value="visa">VISA</option>
+                <!-- Agrega aquí más métodos de pago -->
+            </select>
+
+            <div id="card-details" class="space-y-3 mt-4 hidden">
+                <input
+                    class="w-full p-2 border border-gray-300 rounded"
+                    type="text"
+                    placeholder="Número de tarjeta"
+                />
+                <input
+                    class="w-full p-2 border border-gray-300 rounded"
+                    type="text"
+                    placeholder="Fecha de vencimiento"
+                />
+                <input
+                    class="w-full p-2 border border-gray-300 rounded"
+                    type="text"
+                    placeholder="CVV"
+                />
+            </div>
+        </div>
+
+        <!-- Aquí puedes agregar el resto de la página tal como se muestra en la imagen -->
+
+        <div class="mt-6">
+            <label class="block text-sm font-bold mb-2"
+                >Lista de productos a comprar</label
+            >
+            <div class="flex items-center space-x-2">
+                <img
+                    class="w-16 h-16 object-cover"
+                    src="https://static.zara.net/assets/public/8149/7af1/d7d74347a4ca/578e1c9b9ed4/06462411800-e1/06462411800-e1.jpg?ts=1709823508515&w=750"
+                    alt="Imagen del producto"
+                />
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold">Conjunto para mujer 1</h3>
+                    <p class="text-gray-500">S./ 40.00</p>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <div class="flex justify-between items-center">
+                <span>Total a pagar:</span>
+                <span class="text-lg font-bold">S./ 80.00</span>
+            </div>
+            <div class="flex space-x-2 mt-4">
+                <button class="flex-1 py-2 bg-blue-500 text-white rounded"
+                    >Confirmar compra</button
+                >
+                <button class="flex-1 py-2 bg-red-500 text-white rounded"
+                    >Cancelar</button
+                >
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCardDetails() {
+            var paymentMethod = (
+                document.getElementById("payment-method") as HTMLSelectElement
+            ).value;
+            var cardDetails = document.getElementById("card-details");
+
+            if (paymentMethod === "visa") {
+                cardDetails.classList.remove("hidden");
+            } else {
+                cardDetails.classList.add("hidden");
+            }
+        }
+    </script>
 </Layout>
