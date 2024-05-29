@@ -4,26 +4,26 @@ import Layout from "../layouts/MainLayout.astro";
 
 <Layout title="Compras">
   <header>
-    <h2 class="mt-8 mb-0 text-2xl text-center font-semibold">
+    <h2 class="mt-8 mb-0 pb-5 text-2xl text-center font-semibold">
       CONFIRMAR COMPRAS
     </h2>
   </header>
-  <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+  <div class="rounded-lg shadow-lg p-6 max-w-md mx-auto">
     <h2 class="text-2xl font-bold mb-4">Información Personal</h2>
 
     <div class="space-y-3">
       <input
-        class="w-full p-2 border border-gray-300 rounded"
+        class="w-full p-2 border border-gray-300 rounded dark:text-gray-700"
         type="text"
         placeholder="Nombre del cliente"
       />
       <input
-        class="w-full p-2 border border-gray-300 rounded"
+        class="w-full p-2 border border-gray-300 rounded dark:text-gray-700"
         type="text"
         placeholder="+51 987 623 418"
       />
       <input
-        class="w-full p-2 border border-gray-300 rounded"
+        class="w-full p-2 border border-gray-300 rounded dark:text-gray-700"
         type="text"
         placeholder="Wall Street Avenue"
       />
@@ -32,10 +32,10 @@ import Layout from "../layouts/MainLayout.astro";
     <div class="mt-6">
       <label class="block text-sm font-bold mb-2">Método de pago</label>
       <select
-        class="w-full p-2 border border-gray-300 rounded"
+        class="w-full p-2 rounded border border-gray-300 dark:text-gray-900"
         title="a"
         id="payment-method"
-        onchange="showCardDetails()"
+        onchange="showCardDetails"
       >
         <option value="">Selecciona un método de pago</option>
         <option value="visa">VISA</option>
@@ -44,17 +44,17 @@ import Layout from "../layouts/MainLayout.astro";
 
       <div id="card-details" class="space-y-3 mt-4 hidden">
         <input
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-400 rounded"
           type="text"
           placeholder="Número de tarjeta"
         />
         <input
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-400 rounded"
           type="text"
           placeholder="Fecha de vencimiento"
         />
         <input
-          class="w-full p-2 border border-gray-300 rounded"
+          class="w-full p-2 border border-gray-400 rounded"
           type="text"
           placeholder="CVV"
         />
@@ -78,9 +78,9 @@ import Layout from "../layouts/MainLayout.astro";
           <p class="text-gray-500">S./ 40.00</p>
         </div>
         <div class="flex items-center space-x-1">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
+            <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button>
+            <span class="mx-2 font-semibold">1</span>
+            <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button>
         </div>
       </div>
     </div>
@@ -116,7 +116,5 @@ import Layout from "../layouts/MainLayout.astro";
         cardDetails.classList.add("hidden");
       }
     }
-
-    showCardDetails();
   </script>
 </Layout>
