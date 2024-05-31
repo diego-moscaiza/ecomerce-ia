@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,8 +136,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'taticfiles')
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'taticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -147,12 +147,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS AUTHORIZATION
 CORS_ORIGIN_WHITE_LIST = [
     "http://localhost:4321",
-    "https://ecomerce-ia.vercel.app/",
+    "https://ecomerce-ia.vercel.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4321",
-    "https://ecomerce-ia.vercel.app/",
+    "https://ecomerce-ia.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
