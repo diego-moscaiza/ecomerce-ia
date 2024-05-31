@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Reembolso
 
 class ReembolsoAdmin(admin.ModelAdmin):
-    list_display = ('id_reembolso', 'producto_nombre', 'administrador_nombre', 'cliente_nombre', 'otivo', 'cantidad', 'etodo', 'estado')
+    list_display = ('id_reembolso', 'producto_nombre', 'administrador_nombre', 'cliente_nombre', 'motivo', 'cantidad', 'metodo', 'estado')
 
     def producto_nombre(self, obj):
         return obj.id_producto.nombre
