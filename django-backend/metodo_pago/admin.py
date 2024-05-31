@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import MetodoPago
 
-# Register your models here.
+class MetodoPagoAdmin(admin.ModelAdmin):
+    list_display = ('id_metodo_pago', 'tipo')
 
-admin.site.register(MetodoPago)
+admin.site.register(MetodoPago, MetodoPagoAdmin)
