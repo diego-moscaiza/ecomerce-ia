@@ -1,3 +1,16 @@
 from django.contrib import admin
+from .models import Reembolso
 
-# Register your models here.
+class ReembolsoAdmin(admin.ModelAdmin):
+    list_display = ('id_reembolso', 'producto_nombre', 'administrador_nombre', 'cliente_nombre', 'otivo', 'cantidad', 'etodo', 'estado')
+
+    def producto_nombre(self, obj):
+        return obj.id_producto.nombre
+
+    def administrador_nombre(self, obj):
+        return obj.id_administrador.nombre
+
+    def cliente_nombre(self, obj):
+        return obj.id_cliente.nombre
+
+admin.site.register(Reembolso, ReembolsoAdmin)
