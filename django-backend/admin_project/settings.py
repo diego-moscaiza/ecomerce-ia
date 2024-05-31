@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'proveedor',
     'inventario',
     'estante',
+    'tipo_comprobante',
 ]
 
 MIDDLEWARE = [
