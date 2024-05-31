@@ -11,4 +11,4 @@ class Producto(models.Model):
     cantidad = models.IntegerField(default=0)
     precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     estado = models.IntegerField(default=0)
-    #img = models.ImageField(upload_to='products/')
+    img = models.CharField(max_length=35)
