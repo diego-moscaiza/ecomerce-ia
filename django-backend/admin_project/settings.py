@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'estante',
     'tipo_comprobante',
     'comprobante',
+    'pedido',
 ]
 
 MIDDLEWARE = [
