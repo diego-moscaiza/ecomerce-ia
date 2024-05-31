@@ -68,3 +68,6 @@ django-backend/pedido/migrations/__pycache__/
 
 django-backend/reembolso/__pycache__/
 django-backend/reembolso/migrations/__pycache__/
+
+django-backend/scraping/__pycache__/
+django-backend/scraping/migrations/__pycache__/
