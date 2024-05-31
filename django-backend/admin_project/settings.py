@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1f_9#m(jhn3wp-*_d2@s8u@)havom_fe6*uj9j56soz)drdga-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
+DEBUG = True
+#DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
 
-ALLOWED_HOSTS = ['ecomerce-ia.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -147,12 +147,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS AUTHORIZATION
 CORS_ORIGIN_WHITE_LIST = [
     "http://localhost:4321",
-    "https://ecomerce-ia.vercel.app",
+    #"https://ecomerce-ia.vercel.app",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4321",
-    "https://ecomerce-ia.vercel.app",
+    #"https://ecomerce-ia.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
