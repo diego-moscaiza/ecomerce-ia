@@ -53,3 +53,18 @@ django-backend/inventario/migrations/__pycache__/
 
 django-backend/estante/__pycache__/
 django-backend/estante/migrations/__pycache__/
+
+django-backend/tipo_comprobante/__pycache__/
+django-backend/tipo_comprobante/migrations/__pycache__/
+
+django-backend/comprobante/__pycache__/
+django-backend/comprobante/migrations/__pycache__/
+
+django-backend/estante/__pycache__/
+django-backend/estante/migrations/__pycache__/
+
+django-backend/pedido/__pycache__/
+django-backend/pedido/migrations/__pycache__/
+
+django-backend/reembolso/__pycache__/
+django-backend/reembolso/migrations/__pycache__/
