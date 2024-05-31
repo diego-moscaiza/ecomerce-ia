@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Proveedor
 
-# Register your models here.
+class ProveedorAdmin(admin.ModelAdmin):
+    list_display = ('id_proveedor', 'numero_ruc', 'nombre', 'representante', 'telefono_principal', 'telefono_secundario', 'direccion', 'correo')
 
-admin.site.register(Proveedor)
+admin.site.register(Proveedor, ProveedorAdmin)
