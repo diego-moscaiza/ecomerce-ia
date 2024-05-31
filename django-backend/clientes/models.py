@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password, check_password
 
+
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=True)
@@ -13,6 +14,20 @@ class Cliente(models.Model):
     id_metodo_pago = models.IntegerField(default=0)
     correo = models.CharField(max_length=30)
     contraseña = models.CharField(max_length=128)
+
+    def __str__(self):
+        return {
+            self.id_cliente,
+            self.nombre,
+            self.apellido,
+            self.documento,
+            self.fecha_nacimiento,
+            self.sexo,
+            self.telefono,
+            self.id_metodo_pago,
+            self.correo,
+            self.contraseña,
+        }
 
     def set_password(self, raw_password):
         self.contraseña = make_password(raw_password)
