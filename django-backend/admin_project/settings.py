@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'tipo_comprobante',
     'comprobante',
     'pedido',
+    'reembolso',
 ]
 
 MIDDLEWARE = [
