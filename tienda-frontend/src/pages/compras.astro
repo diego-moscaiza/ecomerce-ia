@@ -35,7 +35,7 @@ import Layout from "../layouts/MainLayout.astro";
         class="w-full p-2 rounded border border-gray-300 dark:text-gray-900"
         title="a"
         id="payment-method"
-        onchange="showCardDetails"
+        onchange="showCardDetails()"
       >
         <option value="">Selecciona un método de pago</option>
         <option value="visa">VISA</option>
@@ -78,9 +78,13 @@ import Layout from "../layouts/MainLayout.astro";
           <p class="text-gray-500">S./ 40.00</p>
         </div>
         <div class="flex items-center space-x-1">
-            <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button>
-            <span class="mx-2 font-semibold">1</span>
-            <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button>
+          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+            >-</button
+          >
+          <span class="mx-2 font-semibold">1</span>
+          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+            >+</button
+          >
         </div>
       </div>
     </div>
@@ -104,17 +108,13 @@ import Layout from "../layouts/MainLayout.astro";
   </div>
 
   <script>
-    function showCardDetails() {
-      var paymentMethod = (
-        document.getElementById("payment-method") as HTMLSelectElement
-      ).value;
-      var cardDetails = document.getElementById("card-details");
+    const paymentMethodSelect = document.getElementById("payment-method");
+    paymentMethodSelect.addEventListener("change", showCardDetails);
 
-      if (paymentMethod === "visa") {
-        cardDetails.classList.remove("hidden");
-      } else {
-        cardDetails.classList.add("hidden");
-      }
+    function showCardDetails(event: any) {
+      const paymentMethod = event.target.value;
+      const cardDetails = document.getElementById("card-details");
+      cardDetails.classList.toggle("hidden", !paymentMethod.includes("visa"));
     }
   </script>
 </Layout>

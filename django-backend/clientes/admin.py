@@ -3,4 +3,7 @@ from .models import Cliente
 
 # Register your models here.
 
-admin.site.register(Cliente)
+class ClienteAdmin(admin.ModelAdmin):
+    list_display = ('id_cliente', 'nombre', 'apellido', 'documento', 'fecha_nacimiento', 'sexo', 'telefono', 'id_metodo_pago', 'correo')
+
+admin.site.register(Cliente, ClienteAdmin)
