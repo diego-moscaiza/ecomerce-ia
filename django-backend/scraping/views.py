@@ -4,6 +4,7 @@ import asyncio
 
 async def scrape_async():
     async with async_playwright() as p:
+        browser = None
 
         if await p.chromium.launch() is not None:
             browser = await p.chromium.launch(headless=False)
@@ -15,8 +16,7 @@ async def scrape_async():
             print("No browser available")
             return None
 
-        browser_available = browser
-        context = await browser_available.new_context()
+        context = await browser.new_context()
         page = await context.new_page()
         await page.goto(
             "https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco"
