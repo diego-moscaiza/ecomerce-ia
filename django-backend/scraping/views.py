@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from playwright.async_api import async_playwright
 import asyncio
+import json
 
 async def scrape_async():
     async with async_playwright() as p:
@@ -18,9 +19,8 @@ async def scrape_async():
 
         context = await browser.new_context()
         page = await context.new_page()
-        await page.goto(
-            "https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco"
-        )
+        link : str = "https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco"
+        await page.goto(link)
 
         etiqueta_inicial: str = ".catalog-product-details"
 
@@ -36,7 +36,8 @@ async def scrape_async():
         )
 
         await browser.close()
-        return prendas
+        prendas_json = json.dumps([prenda for prenda in prendas])
+        return prendas_json
 
 def scrape(request):
     prendas = asyncio.run(scrape_async())
