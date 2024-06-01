@@ -38,13 +38,6 @@ async def scrape_async():
         await browser.close()
         return prendas
 
-
-async def scrape(request):
-    prendas = await scrape_async()
-    return HttpResponse(str(prendas))
-
-
-# Otra forma de hacerlo utilizando asyncio.run()
 def scrape(request):
     prendas = asyncio.run(scrape_async())
     return HttpResponse(str(prendas))
