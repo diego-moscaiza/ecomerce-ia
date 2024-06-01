@@ -212,7 +212,7 @@ import Layout from "../layouts/MainLayout.astro";
     </section>
   </main>
 
-  <script is:inline type="text/javascript">
+  <script type="text/javascript">
     (function (d, t) {
       const v = d.createElement(t);
       const s = d.getElementsByTagName(t)[0];
@@ -223,7 +223,7 @@ import Layout from "../layouts/MainLayout.astro";
           versionID: "production",
         });
       };
-      v.src = "https:/dn.voiceflow.com/widget/bundle.mjs";
+      v.src = "https:/cdn.voiceflow.com/widget/bundle.mjs";
       v.type = "text/javascript";
       s.parentNode.insertBefore(v, s);
     })(document, "script");
