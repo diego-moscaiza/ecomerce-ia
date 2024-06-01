@@ -22,15 +22,18 @@ async def scrape_async():
         link : str = "https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco"
         await page.goto(link)
 
-        etiqueta_inicial: str = ".catalog-product-details"
+        etiqueta_inicial: str = ".catalog-product-border a"
 
         # Obtener todos los elementos con la clase "catalog-product-details"
         prendas = await page.eval_on_selector_all(
             f"{etiqueta_inicial}",
             """
             (products) => products.map((product) => {
-                const title = product.querySelector(".catalog-product-details__name").innerText.trim();
-                return { title };
+                const nombre = product.querySelector(".catalog-product-details .catalog-product-details__name").innerText.trim();
+                const marca = product.querySelector(".catalog-product-details .catalog-product-details__logo-container .brand-logo span").innerText.trim();
+                const precio = product.querySelector(".catalog-product-details .catalog-product-details__prices .catalog-prices .catalog-prices__list .catalog-prices__offer-price").innerText.trim();
+                const img = Array.from(product.querySelectorAll(".proportional-image-wrapper .images-preview .images-preview-item.is-active img")).map(img => img.src).toString();
+                return { nombre, marca, precio, img };
             })
             """,
         )
