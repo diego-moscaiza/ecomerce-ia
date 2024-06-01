@@ -24,4 +24,5 @@ urlpatterns = [
     path("docs/", include_docs_urls(title="API Docs")),
     path("api/clientes/", include("clientes.urls")),
     path("api/productos/", include("productos.urls")),
+    path("scraping/", include("scraping.urls")),
 ]
