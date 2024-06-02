@@ -1,17 +1,21 @@
-const lightThemeButton = document.getElementById("light-theme");
-const darkThemeButton = document.getElementById("dark-theme");
-const preferOSThemeButton = document.getElementById("device-theme");
+const lightThemeButtons = document.querySelectorAll("#light-theme, #light-theme-2");
+const darkThemeButtons = document.querySelectorAll("#dark-theme, #dark-theme-2");
+const preferOSThemeButtons = document.querySelectorAll("#device-theme, #device-theme-2");
 
-lightThemeButton.addEventListener("click", async () => {
-  document.documentElement.classList.remove("dark");
-  localStorage.setItem("preferOS", "false");
-  saveTheme();
+lightThemeButtons.forEach(button => {
+  button.addEventListener("click", async () => {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("preferOS", "false");
+    saveTheme();
+  });
 });
 
-darkThemeButton.addEventListener("click", async () => {
-  document.documentElement.classList.add("dark");
-  localStorage.setItem("preferOS", "false");
-  saveTheme();
+darkThemeButtons.forEach(button => {
+  button.addEventListener("click", async () => {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("preferOS", "false");
+    saveTheme();
+  });
 });
 
 
@@ -61,7 +65,9 @@ const preferOSColorTheme = async () => {
 };
 
 // Función para que el botón cambie dependiendo de la preferencia de SO del usuario
-preferOSThemeButton.addEventListener("click", preferOSColorTheme);
+preferOSThemeButtons.forEach(button => {
+  button.addEventListener("click", preferOSColorTheme);
+});
 
 const loadPreferOSColorTheme = async () => {
   const storedOSTheme = localStorage.getItem("preferOS");
