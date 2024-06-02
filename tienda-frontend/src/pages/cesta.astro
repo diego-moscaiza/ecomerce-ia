@@ -18,16 +18,19 @@ import Layout from "../layouts/MainLayout.astro";
         </h2>
         <div class="flex items-center mb-4 justify-between">
           <div class="flex items-center">
-            <input type="checkbox" class="mr-2" />
+            <input type="checkbox" id="selectAll" class="mr-2" />
             <p class="text-gray-600 dark:text-white">
               Selecciona todos los productos
             </p>
           </div>
           <button class="ml-auto p-0 bg-transparent border-none cursor-pointer">
-            <img src="https://i.ibb.co/YZyDgTH/eliminar-producto.png" alt="eliminar-producto" class="w-6 h-6 md:w-8 md:h-8" />
+            <img
+              src="https://i.ibb.co/YZyDgTH/eliminar-producto.png"
+              alt="eliminar-producto"
+              class="w-6 h-6 md:w-8 md:h-8"
+            />
           </button>
         </div>
-        
       </div>
       <!-- Producto -->
       <!-- Otros productos... -->
@@ -58,56 +61,35 @@ import Layout from "../layouts/MainLayout.astro";
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const numberSpan = document.getElementById("number") as HTMLSpanElement;
-      const decrementButton = document.getElementById(
-        "decrement",
-      ) as HTMLButtonElement;
-      const incrementButton = document.getElementById(
-        "increment",
-      ) as HTMLButtonElement;
-
-      decrementButton.addEventListener("click", () => {
-        let currentNumber = parseInt(numberSpan.textContent as string);
-        if (currentNumber > 0) {
-          numberSpan.textContent = (currentNumber - 1).toString();
-        }
-      });
-
-      incrementButton.addEventListener("click", () => {
-        let currentNumber = parseInt(numberSpan.textContent as string);
-        numberSpan.textContent = (currentNumber + 1).toString();
-      });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const cartContainer = document.getElementById("cartContainer");
+      const selectAllCheckbox = document.getElementById("selectAll");
 
       if (cart.length > 0) {
         cart.forEach((product, index) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center mb-4 border-b pb-4";
           productElement.innerHTML = `
-          <input type="checkbox" class="mr-2" />
-          <img src="${product.image}" alt="${product.name}" class="w-16 h-16 mr-4" />
-          <div class="flex-grow">
-            <h3 class="font-bold text-gray-700 dark:text-white">${product.name}</h3>
-            <div class="flex items-center">
-              <p class="font-bold text-green-500 mr-4">S/ ${product.price.toFixed(2)}</p>
-              <div class="ml-auto">
-                <button
-                  id="decrement-${index}"
-                  class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
-                >-</button>
-                <span id="number-${index}" class="mx-2 font-semibold">${product.quantity}</span>
-                <button
-                  id="increment-${index}"
-                  class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
-                >+</button>
+            <input type="checkbox" class="mr-2 product-checkbox" />
+            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 mr-4" />
+            <div class="flex-grow">
+              <h3 class="font-bold text-gray-700 dark:text-white">${product.name}</h3>
+              <div class="flex items-center">
+                <p class="font-bold text-green-500 mr-4">S/ ${product.price.toFixed(2)}</p>
+                <div class="ml-auto">
+                  <button
+                    id="decrement-${index}"
+                    class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                  >-</button>
+                  <span id="number-${index}" class="mx-2 font-semibold">${product.quantity}</span>
+                  <button
+                    id="increment-${index}"
+                    class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                  >+</button>
+                </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
           cartContainer.appendChild(productElement);
 
           // Add event listeners for increment and decrement buttons
@@ -131,12 +113,22 @@ import Layout from "../layouts/MainLayout.astro";
               updateCart(cart);
             });
         });
+
+        // Add event listener for select all checkbox
+        selectAllCheckbox.addEventListener("change", (event) => {
+          const checkboxes = document.querySelectorAll(".product-checkbox");
+          checkboxes.forEach((checkbox) => {
+            (checkbox as HTMLInputElement).checked = (
+              event.target as HTMLInputElement
+            ).checked;
+          });
+        });
       } else {
         cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
       }
 
       // Function to update the cart in localStorage
-      function updateCart(cart: any) {
+      function updateCart(cart:any) {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
     });
