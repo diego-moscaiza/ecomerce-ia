@@ -16,15 +16,20 @@ import Layout from "../layouts/MainLayout.astro";
         <h2 class="font-bold text-xl mb-4 text-gray-700 dark:text-white">
           Productos seleccionados
         </h2>
-        <div class="flex items-center mb-4">
-          <input type="checkbox" class="mr-2" />
-          <p class="text-gray-600 dark:text-white">
-            Selecciona todos los productos
-          </p>
+        <div class="flex items-center mb-4 justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" class="mr-2" />
+            <p class="text-gray-600 dark:text-white">
+              Selecciona todos los productos
+            </p>
+          </div>
+          <button class="ml-auto p-0 bg-transparent border-none cursor-pointer">
+            <img src="https://i.ibb.co/YZyDgTH/eliminar-producto.png" alt="eliminar-producto" class="w-6 h-6 md:w-8 md:h-8" />
+          </button>
         </div>
+        
       </div>
       <!-- Producto -->
-
       <!-- Otros productos... -->
     </div>
     <!-- Resumen -->
