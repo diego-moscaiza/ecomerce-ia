@@ -18,7 +18,9 @@ import Layout from "../layouts/MainLayout.astro";
         </h2>
         <div class="flex items-center mb-4">
           <input type="checkbox" class="mr-2" />
-          <p class="text-gray-600 dark:text-white">Selecciona todos los productos</p>
+          <p class="text-gray-600 dark:text-white">
+            Selecciona todos los productos
+          </p>
         </div>
       </div>
       <!-- Producto -->
@@ -29,20 +31,30 @@ import Layout from "../layouts/MainLayout.astro";
           class="w-16 h-16 mr-4"
         />
         <div>
-          <h3 class="font-bold text-gray-700 dark:text-white">Conjunto para mujer</h3>
+          <h3 class="font-bold text-gray-700 dark:text-white">
+            Conjunto para mujer
+          </h3>
           <p class="font-bold text-green-500">S/ 40.00</p>
         </div>
         <div class="ml-auto">
-          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button>
-          <span class="mx-2 font-semibold">1</span>
-          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button>
+          <button
+            id="decrement"
+            class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button
+          >
+          <span id="number" class="mx-2 font-semibold">1</span>
+          <button
+            id="increment"
+            class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button
+          >
         </div>
       </div>
       <!-- Otros productos... -->
     </div>
     <!-- Resumen -->
     <div class="w-full md:w-1/2 p-4">
-      <h2 class="font-bold text-xl mb-4 text-gray-700 dark:text-white">Resumen</h2>
+      <h2 class="font-bold text-xl mb-4 text-gray-700 dark:text-white">
+        Resumen
+      </h2>
       <p class="mb-4 text-gray-600 dark:text-white">
         Total a pagar: <span class="font-bold text-green-500">S/ 40.00</span>
       </p>
@@ -61,4 +73,28 @@ import Layout from "../layouts/MainLayout.astro";
       </button>
     </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const numberSpan = document.getElementById("number") as HTMLSpanElement;
+      const decrementButton = document.getElementById(
+        "decrement",
+      ) as HTMLButtonElement;
+      const incrementButton = document.getElementById(
+        "increment",
+      ) as HTMLButtonElement;
+
+      decrementButton.addEventListener("click", () => {
+        let currentNumber = parseInt(numberSpan.textContent as string);
+        if (currentNumber > 0) {
+          numberSpan.textContent = (currentNumber - 1).toString();
+        }
+      });
+
+      incrementButton.addEventListener("click", () => {
+        let currentNumber = parseInt(numberSpan.textContent as string);
+        numberSpan.textContent = (currentNumber + 1).toString();
+      });
+    });
+  </script>
 </Layout>

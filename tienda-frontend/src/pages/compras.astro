@@ -78,11 +78,13 @@ import Layout from "../layouts/MainLayout.astro";
           <p class="text-gray-500">S./ 40.00</p>
         </div>
         <div class="flex items-center space-x-1">
-          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+          <button
+            class="decrement px-2 font-semibold bg-gray-200 dark:bg-gray-700"
             >-</button
           >
-          <span class="mx-2 font-semibold">1</span>
-          <button class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+          <span class="number mx-2 font-semibold">1</span>
+          <button
+            class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700"
             >+</button
           >
         </div>
@@ -116,5 +118,30 @@ import Layout from "../layouts/MainLayout.astro";
       const cardDetails = document.getElementById("card-details");
       cardDetails.classList.toggle("hidden", !paymentMethod.includes("visa"));
     }
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const decrementButtons = document.querySelectorAll(".decrement");
+      const incrementButtons = document.querySelectorAll(".increment");
+
+      decrementButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const numberSpan = button.nextElementSibling as HTMLSpanElement;
+          let currentNumber = parseInt(numberSpan.textContent as string);
+          if (currentNumber > 0) {
+            numberSpan.textContent = (currentNumber - 1).toString();
+          }
+        });
+      });
+
+      incrementButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const numberSpan = button.previousElementSibling as HTMLSpanElement;
+          let currentNumber = parseInt(numberSpan.textContent as string);
+          numberSpan.textContent = (currentNumber + 1).toString();
+        });
+      });
+    });
   </script>
 </Layout>
