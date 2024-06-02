@@ -11,7 +11,7 @@ import Layout from "../layouts/MainLayout.astro";
 
   <div class="flex flex-col md:flex-row">
     <!-- Productos seleccionados -->
-    <div class="w-full md:w-1/2 p-4">
+    <div id="cartContainer" class="w-full md:w-1/2 p-4">
       <div class="block">
         <h2 class="font-bold text-xl mb-4 text-gray-700 dark:text-white">
           Productos seleccionados
@@ -24,36 +24,7 @@ import Layout from "../layouts/MainLayout.astro";
         </div>
       </div>
       <!-- Producto -->
-      <div class="flex items-center mb-4 border-b pb-4">
-        <input
-          type="checkbox"
-          class="mr-2"
-          data-astro-source-file="C:/Users/Usuario/Documents/ecomerce-ia/tienda-frontend/src/pages/cesta.astro"
-          data-astro-source-loc="20:12"
-        />
-        <img
-          src="https://static.zara.net/assets/public/8149/7af1/d7d74347a4ca/578e1c9b9ed4/06462411800-e1/06462411800-e1.jpg?ts=1709823508515&w=750"
-          alt="Producto"
-          class="w-16 h-16 mr-4"
-        />
-        <div>
-          <h3 class="font-bold text-gray-700 dark:text-white">
-            Conjunto para mujer
-          </h3>
-          <p class="font-bold text-green-500">S/ 40.00</p>
-        </div>
-        <div class="ml-auto">
-          <button
-            id="decrement"
-            class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button
-          >
-          <span id="number" class="mx-2 font-semibold">1</span>
-          <button
-            id="increment"
-            class="px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button
-          >
-        </div>
-      </div>
+
       <!-- Otros productos... -->
     </div>
     <!-- Resumen -->
@@ -101,6 +72,68 @@ import Layout from "../layouts/MainLayout.astro";
         let currentNumber = parseInt(numberSpan.textContent as string);
         numberSpan.textContent = (currentNumber + 1).toString();
       });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cartContainer");
+
+      if (cart.length > 0) {
+        cart.forEach((product, index) => {
+          const productElement = document.createElement("div");
+          productElement.className = "flex items-center mb-4 border-b pb-4";
+          productElement.innerHTML = `
+          <input type="checkbox" class="mr-2" />
+          <img src="${product.image}" alt="${product.name}" class="w-16 h-16 mr-4" />
+          <div class="flex-grow">
+            <h3 class="font-bold text-gray-700 dark:text-white">${product.name}</h3>
+            <div class="flex items-center">
+              <p class="font-bold text-green-500 mr-4">S/ ${product.price.toFixed(2)}</p>
+              <div class="ml-auto">
+                <button
+                  id="decrement-${index}"
+                  class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                >-</button>
+                <span id="number-${index}" class="mx-2 font-semibold">${product.quantity}</span>
+                <button
+                  id="increment-${index}"
+                  class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                >+</button>
+              </div>
+            </div>
+          </div>
+        `;
+          cartContainer.appendChild(productElement);
+
+          // Add event listeners for increment and decrement buttons
+          document
+            .getElementById(`decrement-${index}`)
+            .addEventListener("click", () => {
+              if (product.quantity > 1) {
+                product.quantity -= 1;
+                document.getElementById(`number-${index}`).textContent =
+                  product.quantity;
+                updateCart(cart);
+              }
+            });
+
+          document
+            .getElementById(`increment-${index}`)
+            .addEventListener("click", () => {
+              product.quantity += 1;
+              document.getElementById(`number-${index}`).textContent =
+                product.quantity;
+              updateCart(cart);
+            });
+        });
+      } else {
+        cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
+      }
+
+      // Function to update the cart in localStorage
+      function updateCart(cart: any) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
     });
   </script>
 </Layout>

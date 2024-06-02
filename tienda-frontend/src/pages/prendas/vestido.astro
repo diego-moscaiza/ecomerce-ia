@@ -2,7 +2,7 @@
 import Layout from "../../layouts/MainLayout.astro";
 ---
 
-<Layout title="Camiseta">
+<Layout title="Vestido-rojo">
   <section class="w-95 max-w-120rem mx-auto">
     <div class="pt-8 md:grid md:grid-cols-2 md:gap-20">
       <picture
@@ -14,25 +14,26 @@ import Layout from "../../layouts/MainLayout.astro";
           class="h-full w-full object-cover object-center lg:h-full lg:w-full"
         />
       </picture>
-      <div class="flex flex-col justify-center mt-20 md:mt-0">
+      <div class="flex flex-col justify-center mt-8 md:mt-0">
         <h2 class="mb-4">Vestido Rojo</h2>
         <p class="mb-4 text-[#F53756] font-bold">S/60.00</p>
-        <p class="text-base text-black leading-snug dark:text-white">
+        <p class="mb-6 text-base text-black leading-snug dark:text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Exercitationem nihil delectus expedita, atque nisi est assumenda,
           neque voluptas dolores porro debitis recusandae id ipsum repellat
           quaerat ratione. Iure, tempore quae?
         </p>
         <div class="grid grid-cols-2 gap-8">
-          <a href="/ruta/a/tu/archivo.astro" class="flex justify-center">
+          <a href="./../compras" class="flex justify-center">
             <input
               class="bg-[#e51919] text-white p-3 text-center cursor-pointer"
               type="button"
               value="Comprar prenda"
             />
           </a>
-          <a href="/ruta/a/tu/archivo.astro" class="flex justify-center">
+          <a href="./../cesta" class="flex justify-center">
             <input
+              id="addToCart"
               class="bg-green-500 text-white p-3 text-center cursor-pointer"
               type="button"
               value="Agregar al carrito"
@@ -42,4 +43,43 @@ import Layout from "../../layouts/MainLayout.astro";
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addToCartButton = document.getElementById("addToCart");
+
+      addToCartButton.addEventListener("click", () => {
+        const product = {
+          id: "vestido1", // Un identificador único para el producto
+          name: "Vestido Rojo",
+          price: 60.0,
+          image:
+            "https://static.zara.net/assets/public/fcf9/c170/241544f298a3/02ec5f524100/04661315600-e1/04661315600-e1.jpg?ts=1711114223597&w=750",
+          quantity: 1,
+        };
+
+        // Obtener el carrito actual del localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Verificar si el producto ya está en el carrito
+        const existingProductIndex = cart.findIndex(
+          (item: any) => item.id === product.id,
+        );
+
+        if (existingProductIndex >= 0) {
+          // Si el producto ya está en el carrito, incrementar la cantidad
+          cart[existingProductIndex].quantity += 1;
+        } else {
+          // Si el producto no está en el carrito, agregarlo
+          cart.push(product);
+        }
+
+        // Guardar el carrito actualizado en el localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Redirigir a la página de la cesta
+        window.location.href = "../cesta";
+      });
+    });
+  </script>
 </Layout>

@@ -2,7 +2,7 @@
 import Layout from "../../layouts/MainLayout.astro";
 ---
 
-<Layout title="Camiseta">
+<Layout title="Camiseta-negra">
   <section class="w-95 max-w-120rem mx-auto">
     <div class="pt-8 md:grid md:grid-cols-2 md:gap-20">
       <picture
@@ -33,6 +33,7 @@ import Layout from "../../layouts/MainLayout.astro";
           </a>
           <a href="./../cesta" class="flex justify-center">
             <input
+              id="addToCart"
               class="bg-green-500 text-white p-3 text-center cursor-pointer"
               type="button"
               value="Agregar al carrito"
@@ -42,4 +43,43 @@ import Layout from "../../layouts/MainLayout.astro";
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addToCartButton = document.getElementById("addToCart");
+
+      addToCartButton.addEventListener("click", () => {
+        const product = {
+          id: "camiseta1", // Un identificador único para el producto
+          name: "Polo Negro",
+          price: 45.0,
+          image:
+            "https://static.zara.net/assets/public/8149/7af1/d7d74347a4ca/578e1c9b9ed4/06462411800-e1/06462411800-e1.jpg?ts=1709823508515&w=750",
+          quantity: 1,
+        };
+
+        // Obtener el carrito actual del localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Verificar si el producto ya está en el carrito
+        const existingProductIndex = cart.findIndex(
+          (item:any) => item.id === product.id,
+        );
+
+        if (existingProductIndex >= 0) {
+          // Si el producto ya está en el carrito, incrementar la cantidad
+          cart[existingProductIndex].quantity += 1;
+        } else {
+          // Si el producto no está en el carrito, agregarlo
+          cart.push(product);
+        }
+
+        // Guardar el carrito actualizado en el localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Redirigir a la página de la cesta
+        window.location.href = "../cesta";
+      });
+    });
+  </script>
 </Layout>
