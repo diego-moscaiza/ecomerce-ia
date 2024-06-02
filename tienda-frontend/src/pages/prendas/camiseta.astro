@@ -2,7 +2,7 @@
 import Layout from "../../layouts/MainLayout.astro";
 ---
 
-<Layout title="Camiseta">
+<Layout title="Camiseta-negra">
   <section class="w-95 max-w-120rem mx-auto">
     <div class="pt-8 md:grid md:grid-cols-2 md:gap-20">
       <picture
@@ -63,7 +63,7 @@ import Layout from "../../layouts/MainLayout.astro";
 
         // Verificar si el producto ya está en el carrito
         const existingProductIndex = cart.findIndex(
-          (item) => item.id === product.id,
+          (item:any) => item.id === product.id,
         );
 
         if (existingProductIndex >= 0) {
