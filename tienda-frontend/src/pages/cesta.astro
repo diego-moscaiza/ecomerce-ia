@@ -136,17 +136,19 @@ import Layout from "../layouts/MainLayout.astro";
       }
 
       document.getElementById("deleteButton").addEventListener("click", () => {
-  const checkboxes = document.querySelectorAll(".product-checkbox:checked");
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const checkboxes = document.querySelectorAll(
+          ".product-checkbox:checked",
+        );
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  checkboxes.forEach((checkbox) => {
-    const index = checkbox.getAttribute("data-index");
-    cart.splice(index, 1);
-  });
+        checkboxes.forEach((checkbox) => {
+          const index = checkbox.getAttribute("data-index");
+          cart.splice(index, 1);
+        });
 
-  updateCart(cart);
-  location.reload(); // Recarga la página para reflejar los cambios
-});
+        updateCart(cart);
+        location.reload(); // Recarga la página para reflejar los cambios
+      });
     });
   </script>
 </Layout>
