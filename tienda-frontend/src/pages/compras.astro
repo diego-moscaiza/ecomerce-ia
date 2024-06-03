@@ -67,28 +67,7 @@ import Layout from "../layouts/MainLayout.astro";
       <label class="block text-sm font-bold mb-2"
         >Lista de productos a comprar</label
       >
-      <div class="flex items-center space-x-2">
-        <img
-          class="w-16 h-16 object-cover"
-          src="https://static.zara.net/assets/public/8149/7af1/d7d74347a4ca/578e1c9b9ed4/06462411800-e1/06462411800-e1.jpg?ts=1709823508515&w=750"
-          alt="Imagen del producto"
-        />
-        <div class="flex-1">
-          <h3 class="text-lg font-bold">Conjunto para mujer 1</h3>
-          <p class="text-gray-500">S./ 40.00</p>
-        </div>
-        <div class="flex items-center space-x-1">
-          <button
-            class="decrement px-2 font-semibold bg-gray-200 dark:bg-gray-700"
-            >-</button
-          >
-          <span class="number mx-2 font-semibold">1</span>
-          <button
-            class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700"
-            >+</button
-          >
-        </div>
-      </div>
+      <div id="productListContainer"></div>
     </div>
 
     <div class="mt-6">
@@ -110,36 +89,73 @@ import Layout from "../layouts/MainLayout.astro";
   </div>
 
   <script>
-    const paymentMethodSelect = document.getElementById("payment-method");
-    paymentMethodSelect.addEventListener("change", showCardDetails);
-
-    function showCardDetails(event: any) {
-      const paymentMethod = event.target.value;
-      const cardDetails = document.getElementById("card-details");
-      cardDetails.classList.toggle("hidden", !paymentMethod.includes("visa"));
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
-      const decrementButtons = document.querySelectorAll(".decrement");
-      const incrementButtons = document.querySelectorAll(".increment");
+      const selectedProducts =
+        JSON.parse(localStorage.getItem("selectedProducts")) || [];
+      const productListContainer = document.getElementById(
+        "productListContainer",
+      );
 
-      decrementButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const numberSpan = button.nextElementSibling as HTMLSpanElement;
-          let currentNumber = parseInt(numberSpan.textContent as string);
-          if (currentNumber > 0) {
-            numberSpan.textContent = (currentNumber - 1).toString();
-          }
-        });
-      });
+      if (selectedProducts.length > 0) {
+        selectedProducts.forEach((product, index) => {
+          const productElement = document.createElement("div");
+          productElement.className = "flex items-center space-x-2";
+          productElement.innerHTML = `
+            <img class="w-16 h-16 object-cover" src="${product.image}" alt="Imagen del producto" />
+            <div class="flex-1">
+              <h3 class="text-lg font-bold">${product.name}</h3>
+              <p class="text-gray-500">S./ ${product.price.toFixed(2)}</p>
+            </div>
+            <div class="flex items-center space-x-1">
+              <button class="decrement px-2 font-semibold bg-gray-200 dark:bg-gray-700">-</button>
+              <span class="number mx-2 font-semibold">${product.quantity}</span>
+              <button class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button>
+            </div>
+          `;
+          productListContainer.appendChild(productElement);
 
-      incrementButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const numberSpan = button.previousElementSibling as HTMLSpanElement;
-          let currentNumber = parseInt(numberSpan.textContent as string);
-          numberSpan.textContent = (currentNumber + 1).toString();
+          // Add event listeners for increment and decrement buttons
+          productElement
+            .querySelector(".decrement")
+            .addEventListener("click", () => {
+              if (product.quantity > 1) {
+                product.quantity -= 1;
+                productElement.querySelector(".number").textContent =
+                  product.quantity;
+                updateSelectedProducts(selectedProducts);
+                calculateTotal(); // Recalculate total after changing quantity
+              }
+            });
+
+          productElement
+            .querySelector(".increment")
+            .addEventListener("click", () => {
+              product.quantity += 1;
+              productElement.querySelector(".number").textContent =
+                product.quantity;
+              updateSelectedProducts(selectedProducts);
+              calculateTotal(); // Recalculate total after changing quantity
+            });
         });
-      });
+
+        function calculateTotal() {
+          let total = 0;
+          selectedProducts.forEach((product: any) => {
+            total += product.price * product.quantity;
+          });
+          document.querySelector("span.font-bold").textContent =
+            `S./ ${total.toFixed(2)}`;
+        }
+
+        calculateTotal();
+
+        function updateSelectedProducts(products: any) {
+          localStorage.setItem("selectedProducts", JSON.stringify(products));
+        }
+      } else {
+        productListContainer.innerHTML =
+          "<p>No hay productos seleccionados para comprar.</p>";
+      }
     });
   </script>
 </Layout>
