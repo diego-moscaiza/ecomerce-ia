@@ -23,7 +23,10 @@ import Layout from "../layouts/MainLayout.astro";
               Selecciona todos los productos
             </p>
           </div>
-          <button id="deleteButton" class="ml-auto p-0 bg-transparent border-none cursor-pointer">
+          <button
+            id="deleteButton"
+            class="ml-auto p-0 bg-transparent border-none cursor-pointer"
+          >
             <img
               src="https://i.ibb.co/YZyDgTH/eliminar-producto.png"
               alt="eliminar-producto"
@@ -66,11 +69,11 @@ import Layout from "../layouts/MainLayout.astro";
       const selectAllCheckbox = document.getElementById("selectAll");
 
       if (cart.length > 0) {
-        cart.forEach((product:any, index:any) => {
+        cart.forEach((product: any, index: any) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center mb-4 border-b pb-4";
           productElement.innerHTML = `
-            <input type="checkbox" class="mr-2 product-checkbox" />
+            <input type="checkbox" class="mr-2 product-checkbox" data-index="${index}" />
             <img src="${product.image}" alt="${product.name}" class="w-16 h-16 mr-4" />
             <div class="flex-grow">
               <h3 class="font-bold text-gray-700 dark:text-white">${product.name}</h3>
@@ -128,9 +131,22 @@ import Layout from "../layouts/MainLayout.astro";
       }
 
       // Function to update the cart in localStorage
-      function updateCart(cart:any) {
+      function updateCart(cart: any) {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
+
+      document.getElementById("deleteButton").addEventListener("click", () => {
+  const checkboxes = document.querySelectorAll(".product-checkbox:checked");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  checkboxes.forEach((checkbox) => {
+    const index = checkbox.getAttribute("data-index");
+    cart.splice(index, 1);
+  });
+
+  updateCart(cart);
+  location.reload(); // Recarga la página para reflejar los cambios
+});
     });
   </script>
 </Layout>
