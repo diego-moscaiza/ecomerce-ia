@@ -26,20 +26,6 @@ if (Astro.request.method === "POST") {
       correo,
       contraseña,
     });
-
-    console.log("Datos del formulario:", {
-      nombre,
-      apellido,
-      documento,
-      fecha_nacimiento,
-      sexo,
-      telefono,
-      correo,
-      contraseña,
-    });
-
-        console.log("Respuesta del servidor:", response);
-
     if (response.status === 201) {
       // Mostrar una respuesta de registro de cuenta exitosa
       console.log(`Se ha registrado el correo ${correo} exitosamente`);
