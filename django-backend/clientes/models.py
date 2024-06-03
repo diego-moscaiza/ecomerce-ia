@@ -7,7 +7,7 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=40, blank=True)
     apellido = models.CharField(max_length=60, blank=True)
     documento = models.CharField(max_length=11, blank=True)
-    fecha_nacimiento = models.DateField(default=timezone.now)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
     sexo = models.CharField(max_length=10, blank=True)
     telefono = models.CharField(max_length=9, blank=True)
     id_metodo_pago = models.IntegerField(default="", null=True, blank=True)
