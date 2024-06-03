@@ -231,7 +231,7 @@ if (Astro.request.method === "POST") {
     const inputOnlyNumbers = document.querySelectorAll("#document, #phone");
     const inputOnlyText = document.querySelectorAll("#name, #last-name");
 
-    inputOnlyNumbers.forEach((input) => {
+    inputOnlyNumbers.forEach((input:any) => {
       input.addEventListener("input", async (e) => {
         let input = e.target;
         let value = input.value;
@@ -248,7 +248,7 @@ if (Astro.request.method === "POST") {
       });
     });
 
-    inputOnlyText.forEach((input) => {
+    inputOnlyText.forEach((input:any) => {
       input.addEventListener("input", async (e) => {
         let input = e.target;
         let value = input.value;
