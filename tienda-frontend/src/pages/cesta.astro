@@ -82,12 +82,12 @@ import Layout from "../layouts/MainLayout.astro";
                 <div class="ml-auto">
                   <button
                     id="decrement-${index}"
-                    class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                    class="decrement px-2 font-semibold bg-gray-200 dark:bg-gray-700"
                   >-</button>
                   <span id="number-${index}" class="mx-2 font-semibold">${product.quantity}</span>
                   <button
                     id="increment-${index}"
-                    class="px-2 font-semibold bg-gray-200 dark:bg-gray-700"
+                    class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700"
                   >+</button>
                 </div>
               </div>
@@ -175,6 +175,22 @@ import Layout from "../layouts/MainLayout.astro";
         updateCart([]);
         calculateTotal();
         location.reload();
+      });
+
+      const allDecrement = document.querySelectorAll(".decrement");
+      const allIncrement = document.querySelectorAll(".increment");
+
+      allDecrement.forEach((button) => {
+        button.addEventListener("click", async () => {
+          location.reload();
+
+        });
+      });
+
+      allIncrement.forEach((button) => {
+        button.addEventListener("click", async () => {
+          location.reload();
+        });
       });
     });
   </script>
