@@ -95,6 +95,13 @@ import Layout from "../layouts/MainLayout.astro";
           `;
           cartContainer.appendChild(productElement);
 
+          document
+            .getElementById(`number-${index}`)
+            .addEventListener("change", () => {
+              updateCart(cart);
+              calculateTotal(); // Recalculamos el total a pagar
+            });
+
           // Add event listeners for increment and decrement buttons
           document
             .getElementById(`decrement-${index}`)
@@ -130,6 +137,26 @@ import Layout from "../layouts/MainLayout.astro";
         cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
       }
 
+      function calculateTotal() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let total = 0;
+
+        cart.forEach((product) => {
+          total += product.price * product.quantity;
+        });
+
+        document.querySelector("span.font-bold.text-green-500").textContent =
+          `S/ ${total.toFixed(2)}`;
+      }
+
+      calculateTotal();
+
+      document.querySelectorAll(".product-checkbox").forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          calculateTotal(); // Recalcula el total después de seleccionar/deseleccionar productos
+        });
+      });
+
       // Function to update the cart in localStorage
       function updateCart(cart: any) {
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -137,17 +164,17 @@ import Layout from "../layouts/MainLayout.astro";
 
       document.getElementById("deleteButton").addEventListener("click", () => {
         const checkboxes = document.querySelectorAll(
-          ".product-checkbox:checked",
+          ".product-checkbox:checked"
         );
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        checkboxes.forEach((checkbox) => {
-          const index = checkbox.getAttribute("data-index");
-          cart.splice(index, 1);
-        });
+        if (checkboxes.length > 0) {
+          localStorage.setItem("cart", JSON.stringify([]));
+        }
 
-        updateCart(cart);
-        location.reload(); // Recarga la página para reflejar los cambios
+        updateCart([]);
+        calculateTotal();
+        location.reload();
       });
     });
   </script>
