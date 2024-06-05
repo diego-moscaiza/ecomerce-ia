@@ -93,11 +93,11 @@ import Layout from "../layouts/MainLayout.astro";
       const selectedProducts =
         JSON.parse(localStorage.getItem("selectedProducts")) || [];
       const productListContainer = document.getElementById(
-        "productListContainer",
+        "productListContainer"
       );
 
       if (selectedProducts.length > 0) {
-        selectedProducts.forEach((product, index) => {
+        selectedProducts.forEach((product: any, index: any) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center space-x-2";
           productElement.innerHTML = `
@@ -112,7 +112,21 @@ import Layout from "../layouts/MainLayout.astro";
               <button class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700">+</button>
             </div>
           `;
-          productListContainer.appendChild(productElement);
+
+          function updateSelectedProducts(products: any) {
+            localStorage.setItem("selectedProducts", JSON.stringify(products));
+          }
+
+          function calculateTotal() {
+            let total = 0;
+            selectedProducts.forEach((product: any) => {
+              total += product.price * product.quantity;
+            });
+            document.querySelector("span.font-bold").textContent =
+              `S./ ${total.toFixed(2)}`;
+          }
+
+          calculateTotal();
 
           // Add event listeners for increment and decrement buttons
           productElement
@@ -136,22 +150,9 @@ import Layout from "../layouts/MainLayout.astro";
               updateSelectedProducts(selectedProducts);
               calculateTotal(); // Recalculate total after changing quantity
             });
+
+          productListContainer.appendChild(productElement);
         });
-
-        function calculateTotal() {
-          let total = 0;
-          selectedProducts.forEach((product: any) => {
-            total += product.price * product.quantity;
-          });
-          document.querySelector("span.font-bold").textContent =
-            `S./ ${total.toFixed(2)}`;
-        }
-
-        calculateTotal();
-
-        function updateSelectedProducts(products: any) {
-          localStorage.setItem("selectedProducts", JSON.stringify(products));
-        }
       } else {
         productListContainer.innerHTML =
           "<p>No hay productos seleccionados para comprar.</p>";
