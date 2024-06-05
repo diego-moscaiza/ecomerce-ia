@@ -69,7 +69,9 @@ import Layout from "../layouts/MainLayout.astro";
       const cartContainer = document.getElementById("cartContainer");
       const selectAllCheckbox = document.getElementById("selectAll");
 
-      if (cart.length > 0) {
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
+      } else {
         cart.forEach((product: any, index: any) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center mb-4 border-b pb-4";
@@ -92,8 +94,8 @@ import Layout from "../layouts/MainLayout.astro";
                   >+</button>
                 </div>
               </div>
-            </div>
-          `;
+            </div>`;
+
           cartContainer.appendChild(productElement);
 
           document
@@ -103,7 +105,7 @@ import Layout from "../layouts/MainLayout.astro";
               calculateTotal(); // Recalculamos el total a pagar
             });
 
-          // Add event listeners for increment and decrement buttons
+          // Agregue detectores de eventos para botones de incremento y disminución
           document
             .getElementById(`decrement-${index}`)
             .addEventListener("click", () => {
@@ -125,7 +127,7 @@ import Layout from "../layouts/MainLayout.astro";
             });
         });
 
-        // Add event listener for select all checkbox
+        // Agregar detector de eventos para seleccionar todo la casilla de verificación
         selectAllCheckbox.addEventListener("change", (event) => {
           const checkboxes = document.querySelectorAll(".product-checkbox");
           checkboxes.forEach((checkbox) => {
@@ -134,15 +136,13 @@ import Layout from "../layouts/MainLayout.astro";
             ).checked;
           });
         });
-      } else {
-        cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
       }
 
       function calculateTotal() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         let total = 0;
 
-        cart.forEach((product) => {
+        cart.forEach((product: any) => {
           total += product.price * product.quantity;
         });
 
@@ -158,22 +158,37 @@ import Layout from "../layouts/MainLayout.astro";
         });
       });
 
-      // Function to update the cart in localStorage
+      // Función para actualizar el carrito en localStorage
       function updateCart(cart: any) {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
 
       document.getElementById("deleteButton").addEventListener("click", () => {
-        const checkboxes = document.querySelectorAll(
-          ".product-checkbox:checked",
-        );
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const checkboxes = document.querySelectorAll(".product-checkbox");
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        if (checkboxes.length > 0) {
-          localStorage.setItem("cart", JSON.stringify([]));
+        if (selectAllCheckbox.checked) {
+          // Si el checkbox "selectAll" está seleccionado, eliminamos todos los productos
+          for (let i = checkboxes.length - 1; i >= 0; i--) {
+            const checkbox = checkboxes[i];
+            const index = checkbox.dataset.index;
+            cart.splice(index, 1);
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
+        } else {
+          // Si no lo está, eliminamos solo los productos correspondientes a los checkbox individuales
+          for (let i = checkboxes.length - 1; i >= 0; i--) {
+            const checkbox = checkboxes[i];
+            if (checkbox.checked) {
+              const index = checkbox.dataset.index;
+              cart.splice(index, 1);
+            }
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
         }
 
-        updateCart([]);
+        updateCart(cart);
         calculateTotal();
         location.reload();
       });
@@ -193,11 +208,11 @@ import Layout from "../layouts/MainLayout.astro";
         });
       });
 
-      // Add event listener to "Pagar productos" button
+      // Agregar detector de eventos al botón "Pagar productos"
       document.getElementById("payButton").addEventListener("click", () => {
         const selectedProducts = [];
         const checkboxes = document.querySelectorAll(
-          ".product-checkbox:checked",
+          ".product-checkbox:checked"
         );
 
         checkboxes.forEach((checkbox: any) => {
@@ -207,7 +222,7 @@ import Layout from "../layouts/MainLayout.astro";
 
         localStorage.setItem(
           "selectedProducts",
-          JSON.stringify(selectedProducts),
+          JSON.stringify(selectedProducts)
         );
         location.href = "./compras";
       });
