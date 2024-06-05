@@ -89,6 +89,25 @@ import Layout from "../layouts/MainLayout.astro";
   </div>
 
   <script>
+    const paymentMethodSelect = document.getElementById("payment-method");
+    const cardDetails = document.getElementById("card-details");
+
+    function showCardDetails() {
+      const paymentMethod = paymentMethodSelect.value;
+      const paymentMethods = {
+        visa: () => cardDetails.classList.toggle("hidden", false),
+        // Agrega aquí más métodos de pago
+      };
+
+      if (paymentMethods[paymentMethod]) {
+        paymentMethods[paymentMethod]();
+      } else {
+        cardDetails.classList.toggle("hidden", true);
+      }
+    }
+
+    paymentMethodSelect.addEventListener("change", showCardDetails);
+
     document.addEventListener("DOMContentLoaded", () => {
       const selectedProducts =
         JSON.parse(localStorage.getItem("selectedProducts")) || [];
@@ -96,7 +115,10 @@ import Layout from "../layouts/MainLayout.astro";
         "productListContainer"
       );
 
-      if (selectedProducts.length > 0) {
+      if (selectedProducts.length === 0) {
+        productListContainer.innerHTML =
+          "<p>No hay productos seleccionados para comprar.</p>";
+      } else {
         selectedProducts.forEach((product: any, index: any) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center space-x-2";
@@ -128,7 +150,7 @@ import Layout from "../layouts/MainLayout.astro";
 
           calculateTotal();
 
-          // Add event listeners for increment and decrement buttons
+          // Agregue detectores de eventos para botones de incremento y disminución
           productElement
             .querySelector(".decrement")
             .addEventListener("click", () => {
@@ -137,7 +159,7 @@ import Layout from "../layouts/MainLayout.astro";
                 productElement.querySelector(".number").textContent =
                   product.quantity;
                 updateSelectedProducts(selectedProducts);
-                calculateTotal(); // Recalculate total after changing quantity
+                calculateTotal(); // Recalcular el total después de cambiar la cantidad
               }
             });
 
@@ -148,14 +170,11 @@ import Layout from "../layouts/MainLayout.astro";
               productElement.querySelector(".number").textContent =
                 product.quantity;
               updateSelectedProducts(selectedProducts);
-              calculateTotal(); // Recalculate total after changing quantity
+              calculateTotal(); // Recalcular el total después de cambiar la cantidad
             });
 
           productListContainer.appendChild(productElement);
         });
-      } else {
-        productListContainer.innerHTML =
-          "<p>No hay productos seleccionados para comprar.</p>";
       }
     });
   </script>
