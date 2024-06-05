@@ -73,7 +73,7 @@ import Layout from "../layouts/MainLayout.astro";
     <div class="mt-6">
       <div class="flex justify-between items-center">
         <span>Total a pagar:</span>
-        <span class="text-lg font-bold">S./ 0.00</span>
+        <span id="totalPrice" class="text-lg font-bold">S./ 0.00</span>
       </div>
       <div class="flex space-x-2 mt-4">
         <button
@@ -139,13 +139,17 @@ import Layout from "../layouts/MainLayout.astro";
             localStorage.setItem("selectedProducts", JSON.stringify(products));
           }
 
+          function setTotalPrice(total: any) {
+            document.getElementById("totalPrice").textContent =
+              `S./ ${total.toFixed(2)}`;
+          }
+
           function calculateTotal() {
             let total = 0;
             selectedProducts.forEach((product: any) => {
               total += product.price * product.quantity;
             });
-            document.querySelector("span.font-bold").textContent =
-              `S./ ${total.toFixed(2)}`;
+            setTotalPrice(total);
           }
 
           calculateTotal();
