@@ -188,6 +188,12 @@ import Layout from "../layouts/MainLayout.astro";
 
       document.querySelectorAll(".product-checkbox").forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
+          const allCheckboxes = document.querySelectorAll(".product-checkbox");
+          const allSelected = Array.prototype.every.call(
+            allCheckboxes,
+            (checkbox) => checkbox.checked
+          );
+          selectAllCheckbox.checked = allSelected ? true : false;
           calculateTotal(); // Recalcula el total después de seleccionar/deseleccionar productos
           updateTotalPrice();
         });
