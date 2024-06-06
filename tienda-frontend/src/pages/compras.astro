@@ -63,7 +63,7 @@ import Layout from "../layouts/MainLayout.astro";
 
     <!-- Aquí puedes agregar el resto de la página tal como se muestra en la imagen -->
 
-    <div class="mt-6 pb-3">
+    <div class="mt-6 pb-2">
       <label class="block text-sm font-bold mb-2"
         >Lista de productos a comprar</label
       >
@@ -121,7 +121,7 @@ import Layout from "../layouts/MainLayout.astro";
       } else {
         selectedProducts.forEach((product: any, index: any) => {
           const productElement = document.createElement("div");
-          productElement.className = "flex items-center space-x-2 pb-3";
+          productElement.className = "flex items-center space-x-2 py-3";
           productElement.innerHTML = `
             <img class="w-16 h-16 object-cover" src="${product.image}" alt="Imagen del producto" />
             <div class="flex-1">
