@@ -44,8 +44,9 @@ import Layout from "../layouts/MainLayout.astro";
         Resumen
       </h2>
       <p class="mb-4 text-gray-600 dark:text-white">
-        Total a pagar: <span id="totalPrice" class="font-bold text-green-500"
-          >S/ 0.00</span
+        Total a pagar: <span
+          id="total-price-products"
+          class="font-bold text-green-500">S/ 0.00</span
         >
       </p>
       <button
@@ -75,21 +76,22 @@ import Layout from "../layouts/MainLayout.astro";
         cartContainer.innerHTML = "<p>No hay productos en el carrito.</p>";
       } else {
         cart.forEach((product: any, index: any) => {
-          const productElement = document.createElement("div");
+          const productElement = document.createElement("section");
           productElement.className = "flex items-center mb-4 border-b pb-4";
+          productElement.id = "product-cart";
           productElement.innerHTML = `
-            <input type="checkbox" class="mr-2 product-checkbox" data-index="${index}" />
+            <input type="checkbox" id="product-checkbox" class="mr-2 product-checkbox" data-index="${index}" />
             <img src="${product.image}" alt="${product.name}" class="w-16 h-16 mr-4" />
             <div class="flex-grow">
               <h3 class="font-bold text-gray-700 dark:text-white">${product.name}</h3>
               <div class="flex items-center">
-                <p class="font-bold text-green-500 mr-4">S/ ${product.price.toFixed(2)}</p>
+                <p id="price-product" class="font-bold text-green-500 mr-4">S/ ${product.price.toFixed(2)}</p>
                 <div class="ml-auto">
                   <button
                     id="decrement-${index}"
                     class="decrement px-2 font-semibold bg-gray-200 dark:bg-gray-700"
                   >-</button>
-                  <span id="number-${index}" class="mx-2 font-semibold">${product.quantity}</span>
+                  <span id="number-${index}" class="quantity-product mx-2 font-semibold">${product.quantity}</span>
                   <button
                     id="increment-${index}"
                     class="increment px-2 font-semibold bg-gray-200 dark:bg-gray-700"
@@ -142,7 +144,7 @@ import Layout from "../layouts/MainLayout.astro";
       }
 
       function setTotalPrice(total: any) {
-        document.getElementById("totalPrice").textContent =
+        document.getElementById("total-price-products").textContent =
           `S./ ${total.toFixed(2)}`;
       }
 
@@ -167,18 +169,18 @@ import Layout from "../layouts/MainLayout.astro";
       function updateTotalPrice() {
         let total = 0;
         document
-          .querySelectorAll(".product-checkbox:checked")
+          .querySelectorAll(
+            'input[type="checkbox"][id="product-checkbox"]:checked'
+          )
           .forEach((checkbox) => {
-            const product = checkbox.closest(
-              ".flex.items-center.mb-4.border-b.pb-4"
-            );
+            const product = checkbox.closest("#product-cart");
             const price = parseFloat(
               product
-                .querySelector(".font-bold.text-green-500")
+                .querySelector("#price-product")
                 .textContent.replace("S/ ", "")
             );
             const quantity = parseInt(
-              product.querySelector(".mx-2.font-semibold").textContent
+              product.querySelector(".quantity-product").textContent
             );
             total += price * quantity;
           });
