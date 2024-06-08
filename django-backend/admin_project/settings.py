@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'administrador',
     'metodo_pago',
     'categoria',
+    'subcategoria',
     'proveedor',
     'inventario',
     'estante',
