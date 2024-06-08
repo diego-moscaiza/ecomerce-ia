@@ -16,7 +16,7 @@ export default defineConfig({
       protocol: "https"
     }]
   },
-  output: "hybrid",
+  output: "server",
   adapter: node({
     mode: "standalone"
   })
