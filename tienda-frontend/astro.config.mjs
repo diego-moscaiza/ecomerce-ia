@@ -1,23 +1,25 @@
-import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-import node from "@astrojs/node";
+import vercel from "@astrojs/vercel/serverless";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    allowInlining: true
+    allowInlining: true,
   },
   prefetch: {
-    defaultStrategy: "viewport"
+    defaultStrategy: "viewport",
   },
   integrations: [tailwind()],
   image: {
-    remotePatterns: [{
-      protocol: "https"
-    }]
+    remotePatterns: [
+      {
+        protocol: "https",
+      },
+    ],
   },
   output: "server",
-  adapter: node({
-    mode: "middleware"
-  })
+  adapter: vercel({
+    imageService: true,
+  }),
 });
