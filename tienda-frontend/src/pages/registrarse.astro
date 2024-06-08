@@ -2,8 +2,6 @@
 import axios from "axios";
 import Layout from "../layouts/MainLayout.astro";
 
-export const prerender = false;
-
 if (Astro.request.method === "POST") {
   try {
     const data = await Astro.request.formData();
@@ -50,7 +48,7 @@ if (Astro.request.method === "POST") {
         Registrar nueva cuenta
       </h1>
       <h2 class="text-2xl font-semibold mb-4">Datos personales:</h2>
-      <form method="POST">
+      <form action="/iniciar-sesion" method="post">
         <fieldset class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <div class="mb-4 md:mb-0">
             <label
@@ -231,7 +229,7 @@ if (Astro.request.method === "POST") {
     const inputOnlyNumbers = document.querySelectorAll("#document, #phone");
     const inputOnlyText = document.querySelectorAll("#name, #last-name");
 
-    inputOnlyNumbers.forEach((input:any) => {
+    inputOnlyNumbers.forEach((input: any) => {
       input.addEventListener("input", async (e) => {
         let input = e.target;
         let value = input.value;
@@ -248,7 +246,7 @@ if (Astro.request.method === "POST") {
       });
     });
 
-    inputOnlyText.forEach((input:any) => {
+    inputOnlyText.forEach((input: any) => {
       input.addEventListener("input", async (e) => {
         let input = e.target;
         let value = input.value;
@@ -259,6 +257,5 @@ if (Astro.request.method === "POST") {
         input.value = value;
       });
     });
-
   </script>
 </Layout>
