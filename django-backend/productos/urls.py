@@ -1,6 +1,8 @@
-from django.urls import re_path
-from . import views
+from django.urls import path, include
+from rest_framework import routers
+from .views import ProductoViewSet
 
-urlpatterns = [
-    re_path('crear-producto/', views.crear_producto),
-]
+router = routers.DefaultRouter()
+router.register(r"productos", ProductoViewSet, "productos")
+
+urlpatterns = [path("", include(router.urls))]
