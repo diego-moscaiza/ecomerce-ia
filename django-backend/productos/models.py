@@ -15,4 +15,4 @@ class Producto(models.Model):
     color = models.CharField(max_length=18, null=True, blank=True)
     genero = models.CharField(max_length=10, null=True, blank=True)
     estado = models.IntegerField(default=0)
-    img = models.CharField(max_length=35, null=True, blank=True)
+    img = models.CharField(max_length=60, null=True, blank=True)
