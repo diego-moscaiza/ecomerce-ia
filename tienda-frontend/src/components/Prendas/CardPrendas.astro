@@ -1,16 +1,21 @@
 ---
 interface Props {
-  id: string;
-  img: string;
-  nombre: string;
-  color: string;
-  precio: string;
-  success: boolean;
-  flightNumber: number;
-  details: string;
+  idPrenda: string;
+  imgPrenda: string;
+  nombrePrenda: string;
+  colorPrenda: string;
+  precioPrenda: string;
+  // details: string;
 }
 
-const { id, img, nombre, color, precio, success, flightNumber, details } = Astro.props;
+const { idPrenda, imgPrenda, nombrePrenda, colorPrenda, precioPrenda } = Astro.props;
+
+const prendaId = idPrenda != null ? idPrenda : "null";
+const prendaImagen = imgPrenda != null ? imgPrenda : "null";
+const prendanombrePrenda = nombrePrenda != null ? nombrePrenda : "null";
+const prendacolorPrenda = colorPrenda != null ? colorPrenda : "null";
+const prendaprecioPrenda = precioPrenda != null ? precioPrenda : "null";
+
 ---
 
 <article class="group relative">
@@ -18,7 +23,7 @@ const { id, img, nombre, color, precio, success, flightNumber, details } = Astro
     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
   >
     <img
-      src={img}
+      src={prendaImagen}
       alt="Front of men's Basic Tee in black."
       class="h-full w-full object-cover object-center lg:h-full lg:w-full"
     />
@@ -26,13 +31,13 @@ const { id, img, nombre, color, precio, success, flightNumber, details } = Astro
   <div class="mt-4 flex justify-between">
     <div>
       <h3 class="text-sm text-gray-700 dark:text-white">
-        <a href="./prendas/camiseta">
+        <a href={`./prendas/${prendaId}`}>
           <span aria-hidden="true" class="absolute inset-0"></span>
-          {nombre}
+          {prendanombrePrenda}
         </a>
       </h3>
-      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{color}</p>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{prendacolorPrenda}</p>
     </div>
-    <p class="text-sm font-medium text-gray-900 dark:text-white">S/{precio}</p>
+    <p class="text-sm font-medium text-gray-900 dark:text-white">S/{prendaprecioPrenda}</p>
   </div>
 </article>

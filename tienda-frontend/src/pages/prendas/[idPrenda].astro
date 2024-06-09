@@ -1,0 +1,94 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+import { getPrendasById, getAllPrendas } from "../../services/prendas";
+
+interface Props {
+  id: string;
+  name: string;
+  flight_number: number;
+  details: string;
+  links: { patch: { small: string } };
+}
+
+const { id } = Astro?.params;
+
+const prenda: any = id ? await getPrendasById({ id }) : "null";
+
+export async function getStaticPaths() {
+  const launches = await getAllPrendas();
+  return launches.map((prenda: any) => ({
+    params: { id: prenda.id },
+  }));
+}
+---
+
+<MainLayout title={`$${prenda?.name}`}>
+  <a
+    href="../ventas"
+    class="inline-flex px-6 py-3 mt-8 gap-2 text-base font-medium text-center text-black ring-2 rounded-lg focus:ring-4 focus:ring-blue-400 dark:text-white dark:focus:ring-blue-200"
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        fill="currentColor"
+        d="M24.9375 14C24.9375 14.3481 24.7992 14.6819 24.5531 14.9281C24.3069 15.1742 23.9731 15.3125 23.625 15.3125H7.54687L13.1819 20.9464C13.4284 21.193 13.567 21.5274 13.567 21.8761C13.567 22.2248 13.4284 22.5592 13.1819 22.8058C12.9353 23.0523 12.6009 23.1909 12.2522 23.1909C11.9035 23.1909 11.5691 23.0523 11.3225 22.8058L3.4475 14.9308C3.32514 14.8088 3.22805 14.6639 3.16181 14.5044C3.09556 14.3449 3.06146 14.1738 3.06146 14.0011C3.06146 13.8283 3.09556 13.6573 3.16181 13.4978C3.22805 13.3382 3.32514 13.1933 3.4475 13.0714L11.3225 5.1964C11.4446 5.07431 11.5895 4.97746 11.749 4.91139C11.9086 4.84532 12.0795 4.81131 12.2522 4.81131C12.4248 4.81131 12.5958 4.84532 12.7553 4.91139C12.9148 4.97746 13.0598 5.07431 13.1819 5.1964C13.304 5.31849 13.4008 5.46343 13.4669 5.62294C13.533 5.78246 13.567 5.95343 13.567 6.12609C13.567 6.29875 13.533 6.46971 13.4669 6.62923C13.4008 6.78875 13.304 6.93369 13.1819 7.05577L7.54687 12.6875H23.625C23.9731 12.6875 24.3069 12.8258 24.5531 13.0719C24.7992 13.3181 24.9375 13.6519 24.9375 14Z"
+      ></path>
+    </svg>
+    Volver
+  </a>
+
+  <section class="w-95 max-w-120rem mx-auto">
+    <div class="pt-8 md:grid md:grid-cols-2 md:gap-20">
+      <picture
+        class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75"
+      >
+        <img
+          src={prenda?.img}
+          alt={prenda?.name}
+          class="h-full w-full object-cover object-center lg:h-full lg:w-full"
+        />
+      </picture>
+      <div class="flex flex-col justify-center mt-8 md:mt-0">
+        <h2 class="mb-4">{prenda?.name}</h2>
+        <p class="mb-4 text-[#F53756] font-bold">{prenda?.price}</p>
+        <p class="mb-6 text-base text-black leading-snug dark:text-white">
+          {
+            prenda?.description != null
+              ? prenda.description
+              : `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Exercitationem nihil delectus expedita, atque nisi est assumenda,
+          neque voluptas dolores porro debitis recusandae id ipsum repellat
+          quaerat ratione. Iure, tempore quae?`
+          }
+        </p>
+        <div class="grid grid-cols-2 gap-8">
+          <a href="./../compras" class="flex justify-center">
+            <input
+              class="bg-[#e51919] text-white p-3 text-center cursor-pointer"
+              type="button"
+              value="Comprar prenda"
+            />
+          </a>
+          <a href="./../cesta" class="flex justify-center">
+            <input
+              id="addToCart"
+              class="bg-green-500 text-white p-3 text-center cursor-pointer"
+              type="button"
+              value="Agregar al carrito"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
