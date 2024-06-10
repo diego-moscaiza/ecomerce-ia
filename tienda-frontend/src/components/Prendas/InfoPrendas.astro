@@ -1,16 +1,27 @@
 ---
 import CardPrendas from "./CardPrendas.astro";
-import { getAllPrendas } from "../../services/prendas";
+import { getAllProductos } from "../../services/prendas";
+import { type Producto } from "../../types/producto";
 
-const allPrendas = await getAllPrendas();
+export const prerender = true;
+
+
+const productos: Producto[] = await getAllProductos();
+console.log(productos);
 ---
 
 <section
   class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
 >
   {
-    allPrendas.map((prenda) => {
-      <CardPrendas id="" nombre="" color="" precio="" img="" />;
+    productos.map((producto) => {
+      <CardPrendas
+        id={producto.id_producto}
+        nombre={producto.nombre}
+        color={producto.color}
+        precio={producto.precio}
+        img={producto.img}
+      />;
     })
   }
 </section>
