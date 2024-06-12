@@ -15,10 +15,10 @@ const { id } = Astro?.params;
 
 export const prerender = true;
 
-const producto: any = id ? await getProductoById({ id }) : "";
+const producto: any = id && (await getProductoById({ id }));
 
 export async function getStaticPaths() {
-  const productos : Producto[] = await getAllProductos();
+  const productos: Producto[] = await getAllProductos();
   return productos.map((producto) => ({
     params: { id: producto.id_producto },
   }));
@@ -55,14 +55,18 @@ export async function getStaticPaths() {
         class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75"
       >
         <img
+          id="image-product"
           src={producto.img}
-          alt={producto.nombre}
+          alt={`${producto.nombre} ${producto.color}`}
           class="h-full w-full object-cover object-center lg:h-full lg:w-full"
         />
       </picture>
+      <span id="id" class="hidden">{producto.id}</span>
       <div class="flex flex-col justify-center mt-8 md:mt-0">
-        <h2 class="mb-4 font-bold">{producto.nombre}</h2>
-        <p class="mb-4 text-[#F53756] font-bold">{producto.precio}</p>
+        <h2 id="name-product" class="mb-4 font-bold">{producto.nombre}</h2>
+        <p class="mb-4 text-[#F53756] font-bold">
+          S/. <span id="price-product">{producto.precio}</span>
+        </p>
         <p class="mb-6 text-base text-black leading-snug dark:text-white">
           {
             producto.descripcion != ""
@@ -98,14 +102,24 @@ export async function getStaticPaths() {
     document.addEventListener("DOMContentLoaded", () => {
       const addToCartButton = document.getElementById("addToCart");
 
+      let idVal = document.getElementById("id").innerHTML.toString().trim(); // Aqui quiero llamar el valor del id
+      let nameProduct = document
+        .getElementById("name-product")
+        .innerHTML.trim();
+      let priceProduct = document
+        .getElementById("price-product")
+        .innerHTML.trim();
+      let imageProduct = document.getElementById("image-product");
+      let imgSrc = imageProduct.src;
+      let idConcat = `${nameProduct} ${idVal}`;
+
       addToCartButton.addEventListener("click", () => {
         const product = {
-          id: "abrigo1", // Un identificador único para el producto
-          name: "Abrigo Verde",
-          price: 95.0,
-          image:
-            "https://static.zara.net/photos///2023/I/0/1/p/4341/754/533/2/w/750/4341754533_6_1_1.jpg?ts=1698407234145",
-          quantitjg: 1,
+          id: idConcat,
+          name: nameProduct,
+          price: priceProduct,
+          image: imgSrc,
+          quantity: 1,
         };
 
         // Obtener el carrito actual del localStorage
@@ -113,7 +127,7 @@ export async function getStaticPaths() {
 
         // Verificar si el producto ya está en el carrito
         const existingProductIndex = cart.findIndex(
-          (item: any) => item.id === product.id,
+          (item: any) => item.id === product.id
         );
 
         if (existingProductIndex >= 0) {
