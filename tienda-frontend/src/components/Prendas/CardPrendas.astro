@@ -9,56 +9,27 @@ interface Props {
 
 const { id, img, nombre, color, precio } = Astro.props;
 
-const productoId = id != "" ? id : "";
-const productoImagen = img != "" ? img : "";
-const productoNombre = nombre != "" ? nombre : "";
-const productoColor = color != "" ? color : "";
-const productoPrecio = precio != "" ? precio : "";
+const productoId = id && id;
+const productoImagen = img && img;
+const productoNombre = nombre && nombre;
+const productoColor = color && color;
+const productoPrecio = precio && precio;
 ---
 
-<a href={`./prendas/${productoId}`} class="group relative">
-  <picture
-    class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-  >
-    <img
-      src={productoImagen}
-      alt={`${productoId} - ${productoNombre}`}
-      loading="lazy"
-      class="w-60 h-60"
-    />
-  </picture>
-  <div class="mt-4 flex justify-between">
-    <div>
-      <h3 class="text-sm text-gray-700 dark:text-white">
-        <a href={`./prendas/${productoId}`}>
-          <span aria-hidden="true" class="absolute inset-0"></span>
-          {productoNombre}
-        </a>
-      </h3>
-      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        {productoColor}
-      </p>
-    </div>
-    <p class="text-sm font-medium text-gray-900 dark:text-white">
-      S/{productoPrecio}
-    </p>
-  </div>
-</a>
-
-<!-- <article class="group relative">
+<article class="group relative">
   <div
     class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
   >
     <img
       src={productoImagen}
-      alt={productoNombre}
+      alt=`${productoNombre} ${productoColor}`
       class="h-full w-full object-cover object-center lg:h-full lg:w-full"
     />
   </div>
   <div class="mt-4 flex justify-between">
     <div>
       <h3 class="text-sm text-gray-700 dark:text-white">
-        <a href={`./prendas/${productoId}`}>
+        <a href=`./prendas/${productoId}`>
           <span aria-hidden="true" class="absolute inset-0"></span>
           {productoNombre}
         </a>
@@ -68,7 +39,7 @@ const productoPrecio = precio != "" ? precio : "";
       </p>
     </div>
     <p class="text-sm font-medium text-gray-900 dark:text-white">
-      S/{productoPrecio}
+      S/.{productoPrecio}
     </p>
   </div>
-</article> -->
+</article>
