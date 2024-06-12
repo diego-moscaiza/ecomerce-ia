@@ -28,6 +28,9 @@ tienda-frontend/.idea/
 
 # BACKEND
 
+django-backend/venv/
+django-backend/db.sqlite3
+
 django-backend/admin_project/__pycache__/
 
 django-backend/clientes/__pycache__/
