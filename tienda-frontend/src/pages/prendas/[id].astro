@@ -15,7 +15,7 @@ const { id } = Astro?.params;
 
 export const prerender = true;
 
-const producto: any = id && (await getProductoById({ id }));
+const producto: any = id ? await getProductoById({ id }) : "null";
 
 export async function getStaticPaths() {
   const productos: Producto[] = await getAllProductos();
