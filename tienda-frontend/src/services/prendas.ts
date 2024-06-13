@@ -1,6 +1,6 @@
-export const getProductoById = async ({id}) => {
+export const getProductoById = async ({ id }) => {
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/catalogo/productos/${id}/`);
+        const res = await fetch(`https://ecomerce-ia.onrender.com/api/catalogo/productos/${id}/`);
         const productId = await res.json();
         return productId;
     } catch (error) {
@@ -10,7 +10,7 @@ export const getProductoById = async ({id}) => {
 
 export const getAllProductos = async () => {
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/catalogo/productos/`);
+        const res = await fetch(`https://ecomerce-ia.onrender.com/api/catalogo/productos/`);
         const products = await res.json();
         return products;
     } catch (error) {

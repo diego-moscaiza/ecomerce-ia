@@ -1,6 +1,6 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
 import axios from "axios";
+import Layout from "../layouts/MainLayout.astro";
 
 export const prerender = true;
 
@@ -9,7 +9,7 @@ if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
     const correo = data.get("correo");
     const contraseña = data.get("contraseña");
-    const apiUrl = "http://127.0.0.1:8000/api/clientes/login/";
+    const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/login/";
     const response = await axios.post(apiUrl, { correo, contraseña });
 
     if (response.status === 200) {
