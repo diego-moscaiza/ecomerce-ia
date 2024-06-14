@@ -4,12 +4,6 @@ import { type Producto } from "../../types/producto";
 import CardPrendas from "./CardPrendas.astro";
 
 const productos: Producto[] = await getAllProductos();
-
-export async function getStaticPaths() {
-  return productos.map((producto) => ({
-    params: { id: producto.id_producto },
-  }));
-}
 ---
 
 <section
@@ -26,4 +20,4 @@ export async function getStaticPaths() {
       />
     ))
   }
-</section>;
+</section>
