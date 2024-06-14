@@ -102,13 +102,11 @@ export async function getStaticPaths() {
     document.addEventListener("DOMContentLoaded", () => {
       const addToCartButton = document.getElementById("addToCart");
 
-      let idVal = document.getElementById("id").innerHTML.toString().trim(); // Aqui quiero llamar el valor del id
-      let nameProduct = document
-        .getElementById("name-product")
-        .innerHTML.trim();
-      let priceProduct = document
-        .getElementById("price-product")
-        .innerHTML.trim();
+      let idVal = document.getElementById("id").textContent; // Aqui quiero llamar el valor del id
+      let nameProduct = document.getElementById("name-product").textContent;
+      let priceProduct = parseFloat(
+        document.getElementById("price-product").textContent
+      );
       let imageProduct = document.getElementById("image-product");
       let imgSrc = imageProduct.src;
       let idConcat = `${nameProduct} ${idVal}`;
