@@ -124,10 +124,12 @@ import Layout from "../layouts/MainLayout.astro";
           document
             .getElementById(`increment-${index}`)
             .addEventListener("click", () => {
-              product.quantity += 1;
-              document.getElementById(`number-${index}`).textContent =
-                product.quantity;
-              updateCart(cart);
+              if (product.quantity < 10) {
+                product.quantity += 1;
+                document.getElementById(`number-${index}`).textContent =
+                  product.quantity;
+                updateCart(cart);
+              }
             });
         });
 
