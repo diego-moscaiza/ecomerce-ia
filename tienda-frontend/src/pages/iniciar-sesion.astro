@@ -1,34 +1,12 @@
 ---
-import axios from "axios";
 import Layout from "../layouts/MainLayout.astro";
-
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const correo = data.get("correo");
-    const contraseña = data.get("contraseña");
-    const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/login/";
-    const response = await axios.post(apiUrl, { correo, contraseña });
-
-    if (response.status === 200) {
-      console.log(`Haz iniciado sesión! Usuario: ${correo}`);
-      return Astro.redirect("/");
-    } else {
-      console.error("Error al iniciar sesión:", response.statusText);
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error al iniciar sesión:", error.message);
-    }
-  }
-}
 ---
 
 <Layout title="Iniciar Sesión">
   <div class="justify-center min-h-[calc(100vh-4rem)] pt-12">
     <div class="max-w-md mx-auto p-4 lg:p-6 md:p-5 sm:p-4">
       <h1 class="text-2xl font-semibold mb-4">Iniciar Sesión</h1>
-      <form method="post">
+      <form action="/auth/signin" method="post">
         <div class="mb-4">
           <label for="email" class="block text-gray-600 dark:text-gray-300 pb-2"
             >Correo electrónico</label

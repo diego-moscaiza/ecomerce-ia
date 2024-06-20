@@ -1,47 +1,7 @@
 ---
-import axios from "axios";
 import Layout from "../layouts/MainLayout.astro";
-
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const nombre = data.get("nombre");
-    const apellido = data.get("apellido");
-    const documento = data.get("documento");
-    const fecha_nacimiento = data.get("fecha_nacimiento");
-    const sexo = data.get("sexo");
-    const telefono = data.get("telefono");
-    const correo = data.get("correo");
-    const contraseña = data.get("contraseña");
-    const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/register/";
-    const response = await axios.post(apiUrl, {
-      nombre,
-      apellido,
-      documento,
-      fecha_nacimiento,
-      sexo,
-      telefono,
-      correo,
-      contraseña,
-    });
-    if (response.status === 201) {
-      // Mostrar una respuesta de registro de cuenta exitosa
-      console.log(`Se ha registrado el correo ${correo} exitosamente`);
-      // Redirigir a otra página
-      return Astro.redirect("/iniciar-sesion");
-    } else {
-      console.error("Estado del servidor:", response.statusText);
-      console.log(response);
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error al crea cuenta:", error.message);
-    }
-  }
-}
 ---
 
-<!-- formualrio Registrarse -->
 <Layout title="Registrarse">
   <div class="justify-center min-h-[calc(100vh-4rem)] pt-8">
     <div class="max-w-2xl mx-auto p-4 lg:p-6 md:p-5 sm:p-4">
@@ -75,8 +35,7 @@ if (Astro.request.method === "POST") {
       </ol>
 
       <div class="flex flex-col">
-        <!-- Contenido del primer paso -->
-        <form method="post">
+        <form action="/auth/register" method="post">
           <div class="step-content" data-step-content="1">
             <div id="step1Form">
               <fieldset class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-4">
@@ -128,6 +87,7 @@ if (Astro.request.method === "POST") {
                     id="document"
                     name="documento"
                     required
+                    inputmode="numeric"
                     placeholder="Ingrese su DNI"
                     oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);"
                     class="w-full border text-black dark:text-black border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
@@ -191,7 +151,6 @@ if (Astro.request.method === "POST") {
               </fieldset>
             </div>
           </div>
-          <!-- Contenido del segundo paso -->
           <div class="step-content hidden" data-step-content="2">
             <div id="step2Form" class="mb-4">
               <label
