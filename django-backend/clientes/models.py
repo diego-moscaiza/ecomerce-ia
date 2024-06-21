@@ -1,6 +1,7 @@
 from django.db import models
-from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import make_password, check_password
+
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
@@ -17,6 +18,9 @@ class Cliente(models.Model):
     def set_password(self, raw_password):
         self.contraseña = make_password(raw_password)
         self._contraseña = raw_password
+
+    def is_authenticated(self):
+        return True
 
     def check_password(self, raw_password):
         """
