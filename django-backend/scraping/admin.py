@@ -1,8 +1,6 @@
-from django.contrib import admin
-
+from .reports import dowload_excel, dowload_pdf
 from .models import InfoPrendasScraping
-
-# Register your models here.
+from django.contrib import admin
 
 
 class InfoPrendasAdmin(admin.ModelAdmin):
@@ -30,5 +28,10 @@ class InfoPrendasAdmin(admin.ModelAdmin):
         "genero",
     )
 
+    actions = [dowload_excel, dowload_pdf]
+
 
 admin.site.register(InfoPrendasScraping, InfoPrendasAdmin)
+
+dowload_excel.short_description = "Descargar Reporte en Excel"
+dowload_pdf.short_description = "Descargar Reporte en PDF"

@@ -1,5 +1,6 @@
-from django.contrib import admin
 from .models import Producto
+from django.contrib import admin
+from .reports import dowload_excel, dowload_pdf
 
 
 class ProductoAdmin(admin.ModelAdmin):
@@ -56,5 +57,11 @@ class ProductoAdmin(admin.ModelAdmin):
     def numero_estante(self, obj):
         return obj.id_estante.numero_estante
 
+    actions = [dowload_excel, dowload_pdf]
+
 
 admin.site.register(Producto, ProductoAdmin)
+
+dowload_excel.short_description = "Descargar Reporte en Excel"
+
+dowload_pdf.short_description = "Descargar Reporte en PDF"
