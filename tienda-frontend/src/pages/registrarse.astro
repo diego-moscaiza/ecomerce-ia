@@ -13,7 +13,7 @@ if (Astro.request.method === "POST") {
     const telefono = formData.get("telefono");
     const correo = formData.get("correo");
     const contraseña = formData.get("contraseña");
-    const apiUrl = "http://127.0.0.1:8000/api/clientes/register/";
+    const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/register/";
     const response = await axios.post(apiUrl, {
       nombre,
       apellido,
