@@ -15,11 +15,8 @@ class Cliente(models.Model):
     contraseña = models.CharField(max_length=128)
 
     def set_password(self, raw_password):
-        self.password = make_password(raw_password)
+        self.contraseña = make_password(raw_password)
         self._password = raw_password
 
     def check_password(self, raw_password):
-        return check_password(raw_password, self.password)
-
-    def is_authenticated(self):
-        return True
+        return check_password(raw_password, self.contraseña)

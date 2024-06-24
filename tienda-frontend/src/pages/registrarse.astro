@@ -1,5 +1,43 @@
 ---
+import axios from "axios";
 import Layout from "../layouts/MainLayout.astro";
+
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    const nombre = formData.get("nombre");
+    const apellido = formData.get("apellido");
+    const documento = formData.get("documento");
+    const fecha_nacimiento = formData.get("fecha_nacimiento");
+    const sexo = formData.get("sexo");
+    const telefono = formData.get("telefono");
+    const correo = formData.get("correo");
+    const contraseña = formData.get("contraseña");
+    const apiUrl = "http://127.0.0.1:8000/api/clientes/register/";
+    const response = await axios.post(apiUrl, {
+      nombre,
+      apellido,
+      documento,
+      fecha_nacimiento,
+      sexo,
+      telefono,
+      correo,
+      contraseña,
+    });
+    if (response.status === 201) {
+      // Mostrar una respuesta de registro de cuenta exitosa
+      console.log(`Se ha registrado el correo ${correo} exitosamente`);
+      // Redirigir a otra página
+      return Astro.redirect("/iniciar-sesion");
+    } else {
+      console.error("Error al crea cuenta:", response.statusText);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error al crea cuenta:", error.message);
+    }
+  }
+}
 ---
 
 <Layout title="Registrarse">
@@ -11,7 +49,7 @@ import Layout from "../layouts/MainLayout.astro";
       >
         <li
           class="flex flex-grow items-center text-blue-600 after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-4 xl:after:mx-8"
-          data-step="1"
+          formData-step="1"
         >
           <div
             class="flex items-center whitespace-nowrap sm:after:hidden after:mx-2"
@@ -23,7 +61,7 @@ import Layout from "../layouts/MainLayout.astro";
             >
           </div>
         </li>
-        <li class="flex text-black" data-step="2">
+        <li class="flex text-black" formData-step="2">
           <div class="flex items-center">
             <span
               class="step-number w-6 h-6 bg-gray-100 dark border border-gray-200 rounded-full flex justify-center items-center mr-3 lg:w-10 lg:h-10"
@@ -35,8 +73,8 @@ import Layout from "../layouts/MainLayout.astro";
       </ol>
 
       <div class="flex flex-col">
-        <form action="/auth/register" method="post">
-          <div class="step-content" data-step-content="1">
+        <form method="post">
+          <div class="step-content" formData-step-content="1">
             <div id="step1Form">
               <fieldset class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-4">
                 <div class="mb-4 md:mb-0">
@@ -151,7 +189,7 @@ import Layout from "../layouts/MainLayout.astro";
               </fieldset>
             </div>
           </div>
-          <div class="step-content hidden" data-step-content="2">
+          <div class="step-content hidden" formData-step-content="2">
             <div id="step2Form" class="mb-4">
               <label
                 for="email"
@@ -246,8 +284,8 @@ import Layout from "../layouts/MainLayout.astro";
       const prevBtn = document.getElementById("prev-btn");
       const nextBtn = document.getElementById("next-btn");
       const submitBtn = document.getElementById("submit-btn");
-      const steps = document.querySelectorAll("[data-step]");
-      const stepContents = document.querySelectorAll("[data-step-content]");
+      const steps = document.querySelectorAll("[formData-step]");
+      const stepContents = document.querySelectorAll("[formData-step-content]");
       let currentStep = 1;
 
       // Funciones para validar la entrada de texto y números
