@@ -6,8 +6,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
         const formData = await request.formData();
         const correo = formData.get("correo")?.toString();
         const contraseña = formData.get("contraseña")?.toString();
-        //const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/login/";
-        const apiUrl = "http://127.0.0.1:8000/api/clientes/login/";
+        const apiUrl = "https://ecomerce-ia.onrender.com/api/clientes/login/";
         const response = await axios.post(apiUrl, { correo, contraseña });
 
         if (response.status === 200) {
