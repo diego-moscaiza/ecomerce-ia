@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import AuthenticationFailed
 
 
 @api_view(["POST"])
@@ -52,7 +53,12 @@ def login(request):
             {"Error": "Contraseña inválida"}, status=status.HTTP_400_BAD_REQUEST
         )
 
+    # Eliminar token anterior
+    ClienteToken.objects.filter(cliente=cliente).delete()
+
+    # Generar nuevo token
     token, created = ClienteToken.objects.get_or_create(cliente=cliente)
+
     serializer = ClienteSerializer(instance=cliente)
 
     return Response(
@@ -61,41 +67,36 @@ def login(request):
 
 
 @api_view(["POST"])
-def logout(request):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            request.user.auth_token.delete()
-        return Response({"message": "Estás desconectado"}, status=status.HTTP_200_OK)
+@authentication_classes([ClienteTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def profile(request):
+    cliente = request.user
+    serializer = ClienteSerializer(instance=cliente)
+    message = f"Estás logueado con {cliente.correo}"
+    return Response((message, serializer.data), status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
 @authentication_classes([ClienteTokenAuthentication])
-@permission_classes([IsAuthenticated])
-def profile(request):
-    cliente = get_cliente_from_database(request)
-    if cliente:
-        serializer = ClienteSerializer(instance=cliente)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+def logout(request):
+    if request.user.is_authenticated:
+        try:
+            token = request.auth  # Obtener el token autenticado
+            cliente_token = ClienteToken.objects.get(key=token)
+            cliente_token.delete()  # Eliminar el token del cliente
+            return Response(
+                {"message": "You are now logged out."}, status=status.HTTP_200_OK
+            )
+        except ClienteToken.DoesNotExist:
+            return Response(
+                {"message": "Token not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"message": "Error logging out.", "error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
     else:
         return Response(
-            {"Error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED
         )
-
-
-def get_cliente_from_database(request):
-    user = request.user
-    if user.is_authenticated:
-        return user  # Return the Client object itself
-    else:
-        return None
-
-
-class ClienteMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        cliente = get_cliente_from_database(request)
-        request.cliente = cliente
-        response = self.get_response(request)
-        return response
