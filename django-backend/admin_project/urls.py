@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 
 admin.site.site_header = "Panel Administrador"
-admin.site.site_title = "Secciones"
+admin.site.site_title = "Panel Administrador"
 admin.site.index_title = "Secciones"
 
 
