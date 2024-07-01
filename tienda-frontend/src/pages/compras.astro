@@ -78,48 +78,50 @@ import Layout from "../layouts/MainLayout.astro";
       <div class="flex space-x-2 mt-4">
         <button
           class="flex-1 py-2 bg-blue-500 text-white rounded"
-          onclick="location.href=''">Confirmar compra</button
+          id="confirmButton">Confirmar compra</button
         >
         <button
           class="flex-1 py-2 bg-red-500 text-white rounded"
-          onclick="location.href='./cesta'">Cancelar</button
+          id="cancelButton">Cancelar</button
         >
       </div>
     </div>
   </div>
 
   <script>
-    const paymentMethodSelect = document.getElementById("payment-method");
-    const cardDetails = document.getElementById("card-details");
-
-    function showCardDetails() {
-      const paymentMethod = paymentMethodSelect.value;
-      const paymentMethods = {
-        visa: () => cardDetails.classList.toggle("hidden", false),
-        // Agrega aquí más métodos de pago
-      };
-
-      if (paymentMethods[paymentMethod]) {
-        paymentMethods[paymentMethod]();
-      } else {
-        cardDetails.classList.toggle("hidden", true);
-      }
-    }
-
-    paymentMethodSelect.addEventListener("change", showCardDetails);
-
     document.addEventListener("DOMContentLoaded", () => {
+      const paymentMethodSelect = document.getElementById(
+        "payment-method",
+      ) as HTMLSelectElement;
+      const cardDetails = document.getElementById("card-details");
+
+      function showCardDetails() {
+        const paymentMethod = paymentMethodSelect.value;
+        const paymentMethods = {
+          visa: () => cardDetails.classList.remove("hidden"),
+          // Agrega aquí más métodos de pago
+        };
+
+        if (paymentMethods[paymentMethod]) {
+          paymentMethods[paymentMethod]();
+        } else {
+          cardDetails.classList.add("hidden");
+        }
+      }
+
+      paymentMethodSelect.addEventListener("change", showCardDetails);
+
       const selectedProducts =
         JSON.parse(localStorage.getItem("selectedProducts")) || [];
       const productListContainer = document.getElementById(
-        "productListContainer"
+        "productListContainer",
       );
 
       if (selectedProducts.length === 0) {
         productListContainer.innerHTML =
           '<p class="pb-3">No hay productos seleccionados para comprar.</p>';
       } else {
-        selectedProducts.forEach((product: any, index: any) => {
+        selectedProducts.forEach((product, index) => {
           const productElement = document.createElement("div");
           productElement.className = "flex items-center space-x-2 py-3";
           productElement.innerHTML = `
@@ -135,18 +137,18 @@ import Layout from "../layouts/MainLayout.astro";
             </div>
           `;
 
-          function updateSelectedProducts(products: any) {
+          function updateSelectedProducts(products) {
             localStorage.setItem("selectedProducts", JSON.stringify(products));
           }
 
-          function setTotalPrice(total: any) {
+          function setTotalPrice(total) {
             document.getElementById("totalPrice").textContent =
               `S./ ${total.toFixed(2)}`;
           }
 
           function calculateTotal() {
             let total = 0;
-            selectedProducts.forEach((product: any) => {
+            selectedProducts.forEach((product) => {
               total += product.price * product.quantity;
             });
             setTotalPrice(total);
@@ -154,7 +156,6 @@ import Layout from "../layouts/MainLayout.astro";
 
           calculateTotal();
 
-          // Agregue detectores de eventos para botones de incremento y disminución
           productElement
             .querySelector(".decrement")
             .addEventListener("click", () => {
@@ -163,7 +164,7 @@ import Layout from "../layouts/MainLayout.astro";
                 productElement.querySelector(".number").textContent =
                   product.quantity;
                 updateSelectedProducts(selectedProducts);
-                calculateTotal(); // Recalcular el total después de cambiar la cantidad
+                calculateTotal();
               }
             });
 
@@ -174,12 +175,31 @@ import Layout from "../layouts/MainLayout.astro";
               productElement.querySelector(".number").textContent =
                 product.quantity;
               updateSelectedProducts(selectedProducts);
-              calculateTotal(); // Recalcular el total después de cambiar la cantidad
+              calculateTotal();
             });
 
           productListContainer.appendChild(productElement);
         });
       }
+
+      function confirmPurchase() {
+        alert("Compra confirmada");
+        localStorage.removeItem("selectedProducts");
+        window.location.href = "./cesta";
+      }
+
+      function cancelPurchase() {
+        alert("Compra cancelada");
+        localStorage.removeItem("selectedProducts");
+        window.location.href = "./cesta";
+      }
+
+      document
+        .getElementById("confirmButton")
+        .addEventListener("click", confirmPurchase);
+      document
+        .getElementById("cancelButton")
+        .addEventListener("click", cancelPurchase);
     });
   </script>
 </Layout>
