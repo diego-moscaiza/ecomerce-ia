@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "coreapi",
     "playwright",
     "scraping",
+    "cuenta",
     "clientes",
     "productos",
     "administrador",
@@ -135,7 +136,7 @@ TIME_ZONE = "America/Lima"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
