@@ -20,7 +20,14 @@ def register(request):
 
     if serializer.is_valid():
         user_email = serializer.validated_data["email"]
+        user_name = serializer.validated_data["username"]
         user_password = serializer.validated_data["password"]
+
+        if User.objects.filter(username=user_name).exists():
+            return Response(
+                {"Error": "El nombre de usuario ya está registrado"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         if User.objects.filter(email=user_email).exists():
             return Response(
@@ -44,19 +51,17 @@ def register(request):
 
 @api_view(["POST"])
 def login(request):
-    user_email = request.data.get("email")
+    user_name = request.data.get("username")
     user_password = request.data.get("password")
 
-    user = get_object_or_404(User, email=user_email)
+    user = get_object_or_404(User, username=user_name)
 
     if not user.check_password(user_password):
         return Response(
             {"Error": "Contraseña inválida"}, status=status.HTTP_400_BAD_REQUEST
         )
 
-    user.last_login = (
-        timezone.now()
-    )  # Utiliza la zona horaria configurada en settings.py
+    user.last_login = timezone.now()
     user.save()
 
     token, created = Token.objects.get_or_create(user=user)
@@ -84,7 +89,7 @@ def logout(request):
         if token_obj:
             token_obj.delete()
             return Response(
-                {"Message": "Usted ha cerrado sesión"}, status=status.HTTP_200_OK
+                {"Message": "Haz cerrado sesión"}, status=status.HTTP_200_OK
             )
         else:
             return Response(
