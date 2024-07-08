@@ -5,4 +5,4 @@ from django.contrib.auth.models import User
 class CuentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "username", "email"]
+        fields = ["id", "first_name", "last_name", "username", "email", "password"]
