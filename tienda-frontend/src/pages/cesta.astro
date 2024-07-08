@@ -60,7 +60,9 @@ import Layout from "../layouts/MainLayout.astro";
           >
             Pagar productos
           </button>
-          <button class="bg-red-500 text-white px-4 py-2 rounded-md mr-2 mb-2"
+          <button
+            id="remove-selection"
+            class="bg-red-500 text-white px-4 py-2 rounded-md mr-2 mb-2"
             >Cancelar</button
           >
         </div>
@@ -297,6 +299,16 @@ import Layout from "../layouts/MainLayout.astro";
         );
         location.href = "./compras";
       });
+
+      document
+        .getElementById("remove-selection")
+        .addEventListener("click", () => {
+          selectAllCheckbox.checked = false;
+          document.querySelectorAll(".product-checkbox").forEach((checkbox) => {
+            (checkbox as HTMLInputElement).checked = false;
+          });
+          updateTotalPrice();
+        });
     });
   </script>
 </Layout>
