@@ -4,8 +4,10 @@ import Layout from "../layouts/MainLayout.astro";
 
 <Layout title="Compras">
   <header>
-    <h2 class="mt-8 mb-0 pb-5 text-2xl text-center font-semibold">
-      CONFIRMAR COMPRAS
+    <h2
+      class="mt-8 pb-5 text-3xl font-bold text-center tracking-tight text-gray-900 dark:text-white"
+    >
+      Confirmar compras
     </h2>
   </header>
   <div class="rounded-lg shadow-lg p-6 max-w-md mx-auto">
@@ -91,7 +93,7 @@ import Layout from "../layouts/MainLayout.astro";
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const paymentMethodSelect = document.getElementById(
-        "payment-method",
+        "payment-method"
       ) as HTMLSelectElement;
       const cardDetails = document.getElementById("card-details");
 
@@ -114,7 +116,7 @@ import Layout from "../layouts/MainLayout.astro";
       const selectedProducts =
         JSON.parse(localStorage.getItem("selectedProducts")) || [];
       const productListContainer = document.getElementById(
-        "productListContainer",
+        "productListContainer"
       );
 
       if (selectedProducts.length === 0) {

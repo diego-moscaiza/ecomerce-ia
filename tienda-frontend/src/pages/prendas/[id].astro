@@ -9,6 +9,8 @@ interface Props {
   nombre: string;
   precio: string;
   descripcion: string;
+  marca: string;
+  genero: string;
 }
 
 const { id } = Astro?.params;
@@ -28,11 +30,11 @@ export async function getStaticPaths() {
 <MainLayout title={`${producto.nombre}`}>
   <a
     href="/prendas"
-    class="inline-flex px-6 py-3 mt-8 gap-2 text-base font-medium text-center text-black ring-2 rounded-lg focus:ring-4 focus:ring-blue-400 dark:text-white dark:focus:ring-blue-200"
+    class="inline-flex px-4 py-2 mt-8 gap-2 text-sm font-medium text-center text-black ring-2 rounded-lg focus:ring-4 focus:ring-blue-400 dark:text-white dark:focus:ring-blue-200"
   >
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 28 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -49,49 +51,50 @@ export async function getStaticPaths() {
     Volver
   </a>
 
-  <section class="w-95 max-w-120rem mx-auto">
-    <div class="pt-10 md:grid md:grid-cols-2 md:gap-20">
-      <picture
-        class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75"
-      >
-        <img
-          id="image-product"
-          src={producto.img}
-          alt={`${producto.nombre} ${producto.color}`}
-          class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-        />
-      </picture>
-      <span id="id" class="hidden">{producto.id}</span>
-      <div class="flex flex-col justify-center mt-8 md:mt-0">
-        <h2 id="name-product" class="mb-4 font-bold">{producto.nombre}</h2>
-        <p class="mb-4 text-[#F53756] font-bold">
-          S/. <span id="price-product">{producto.precio}</span>
+  <section class="w-95 max-w-120rem mx-auto pt-4 sm:pt-14 pb-24 sm:pb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+      <div class="flex justify-center">
+        <picture
+          class="w-full h-full overflow-hidden rounded-md bg-gray-200 max-w-sm max-h-sm"
+        >
+          <img
+            id="image-product"
+            src={producto.img}
+            alt={`${producto.nombre} - ${producto.marca}`}
+            class="w-full h-full object-cover object-center"
+          />
+        </picture>
+      </div>
+      <div class="flex flex-col justify-center mx-auto max-w-md">
+        <h2 id="name-product" class="text-2xl font-bold mb-4">
+          {producto.nombre}
+        </h2>
+        <p class="text-lg text-gray-600 mb-2">
+          Marca: {producto.marca}
         </p>
-        <p class="mb-6 text-base text-black leading-snug dark:text-white">
+        <p class="text-lg text-gray-600 mb-2">
+          Género: {producto.genero}
+        </p>
+        <p class="text-lg text-red-500 font-bold mb-4">
+          Precio: S/. {producto.precio}
+        </p>
+        <p class="text-base text-gray-600 leading-snug mb-6">
           {
             producto.descripcion != ""
               ? producto.descripcion
-              : `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem nihil delectus expedita, atque nisi est assumenda,
-          neque voluptas dolores porro debitis recusandae id ipsum repellat
-          quaerat ratione. Iure, tempore quae?`
+              : "No hay descripción adicional disponible"
           }
         </p>
-        <div class="grid grid-cols-2 gap-8">
+        <div class="flex gap-4">
           <a href="./../compras" class="flex justify-center">
-            <input
-              class="bg-[#e51919] text-white p-3 text-center cursor-pointer rounded-md"
-              type="button"
-              value="Comprar producto"
-            />
+            <button class="bg-red-500 text-white py-3 px-6 rounded-md">
+              Comprar producto
+            </button>
           </a>
           <a href="./../cesta" class="flex justify-center">
-            <input
-              id="addToCart"
-              class="bg-green-500 text-white p-3 text-center cursor-pointer rounded-md"
-              type="button"
-              value="Agregar al carrito"
-            />
+            <button class="bg-green-500 text-white py-3 px-6 rounded-md">
+              Agregar al carrito
+            </button>
           </a>
         </div>
       </div>

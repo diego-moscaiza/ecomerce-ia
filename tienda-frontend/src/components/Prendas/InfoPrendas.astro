@@ -7,7 +7,7 @@ const productos: Producto[] = await getAllProductos();
 ---
 
 <section
-  class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+  class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8"
 >
   {
     productos.map((producto) => (
@@ -16,6 +16,7 @@ const productos: Producto[] = await getAllProductos();
         nombre={producto.nombre}
         color={producto.color}
         precio={producto.precio}
+        marca={producto.marca}
         img={producto.img}
       />
     ))
