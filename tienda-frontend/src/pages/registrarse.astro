@@ -10,8 +10,7 @@ if (Astro.request.method === "POST") {
     const correo = formData.get("email");
     const usuario = formData.get("username");
     const password = formData.get("password");
-    const apiUrl = "http://127.0.0.1:8000/api/cuentas/register/";
-    // const apiUrl = "https://ecomerce-ia.onrender.com/api/cuentas/register/";
+    const apiUrl = "https://ecomerce-ia.onrender.com/api/cuentas/register/";
 
     const response = await fetch(apiUrl, {
       method: "POST",

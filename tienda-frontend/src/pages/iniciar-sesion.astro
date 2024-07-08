@@ -9,8 +9,7 @@ if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
     const usuario = formData.get("username");
     const password = formData.get("password");
-    const apiUrl = "http://127.0.0.1:8000/api/cuentas/login/";
-    // const apiUrl = "https://ecomerce-ia.onrender.com/api/cuentas/login/";
+    const apiUrl = "https://ecomerce-ia.onrender.com/api/cuentas/login/";
     const response = await axios.post(apiUrl, {
       username: usuario,
       password: password,
