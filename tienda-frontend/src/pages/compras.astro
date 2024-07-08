@@ -173,11 +173,13 @@ import Layout from "../layouts/MainLayout.astro";
           productElement
             .querySelector(".increment")
             .addEventListener("click", () => {
-              product.quantity += 1;
-              productElement.querySelector(".number").textContent =
-                product.quantity;
-              updateSelectedProducts(selectedProducts);
-              calculateTotal();
+              if (product.quantity < 10) {
+                product.quantity += 1;
+                productElement.querySelector(".number").textContent =
+                  product.quantity;
+                updateSelectedProducts(selectedProducts);
+                calculateTotal();
+              }
             });
 
           productListContainer.appendChild(productElement);
@@ -186,13 +188,13 @@ import Layout from "../layouts/MainLayout.astro";
 
       function confirmPurchase() {
         alert("Compra confirmada");
-        localStorage.removeItem("selectedProducts");
+        localStorage.setItem("selectedProducts", "");
         window.location.href = "./cesta";
       }
 
       function cancelPurchase() {
         alert("Compra cancelada");
-        localStorage.removeItem("selectedProducts");
+        localStorage.setItem("selectedProducts", "");
         window.location.href = "./cesta";
       }
 

@@ -65,20 +65,21 @@ export async function getStaticPaths() {
           />
         </picture>
       </div>
+      <span id="idVal" class="hidden">{producto.id}</span>
       <div class="flex flex-col justify-center mx-auto max-w-md">
         <h2 id="name-product" class="text-2xl font-bold mb-4">
           {producto.nombre}
         </h2>
-        <p class="text-lg text-gray-600 mb-2">
-          Marca: {producto.marca}
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">
+          Marca: <span>{producto.marca}</span>
         </p>
-        <p class="text-lg text-gray-600 mb-2">
-          Género: {producto.genero}
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">
+          Género: <span>{producto.genero}</span>
         </p>
         <p class="text-lg text-red-500 font-bold mb-4">
-          Precio: S/. {producto.precio}
+          Precio: S/. <span id="price-product">{producto.precio}</span>
         </p>
-        <p class="text-base text-gray-600 leading-snug mb-6">
+        <p class="text-base text-gray-600 dark:text-gray-300 leading-snug mb-6">
           {
             producto.descripcion != ""
               ? producto.descripcion
@@ -86,16 +87,18 @@ export async function getStaticPaths() {
           }
         </p>
         <div class="flex gap-4">
-          <a href="./../compras" class="flex justify-center">
-            <button class="bg-red-500 text-white py-3 px-6 rounded-md">
-              Comprar producto
-            </button>
-          </a>
-          <a href="./../cesta" class="flex justify-center">
-            <button class="bg-green-500 text-white py-3 px-6 rounded-md">
-              Agregar al carrito
-            </button>
-          </a>
+          <button
+            id="addToPaymentConfirm"
+            class="bg-red-500 text-white py-3 px-6 rounded-md"
+          >
+            Comprar producto
+          </button>
+          <button
+            id="addToCart"
+            class="bg-green-500 text-white py-3 px-6 rounded-md"
+          >
+            Agregar al carrito
+          </button>
         </div>
       </div>
     </div>
@@ -104,8 +107,11 @@ export async function getStaticPaths() {
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const addToCartButton = document.getElementById("addToCart");
+      const addToPaymentConfirmButton = document.getElementById(
+        "addToPaymentConfirm"
+      );
 
-      let idVal = document.getElementById("id").textContent; // Aqui quiero llamar el valor del id
+      let idVal = document.getElementById("idVal").textContent; // Aqui quiero llamar el valor del id
       let nameProduct = document.getElementById("name-product").textContent;
       let priceProduct = parseFloat(
         document.getElementById("price-product").textContent
@@ -114,14 +120,16 @@ export async function getStaticPaths() {
       let imgSrc = imageProduct.src;
       let idConcat = `${nameProduct} ${idVal}`;
 
+      const product = {
+        id: idConcat,
+        name: nameProduct,
+        price: priceProduct,
+        image: imgSrc,
+        quantity: 1,
+      };
+
       addToCartButton.addEventListener("click", () => {
-        const product = {
-          id: idConcat,
-          name: nameProduct,
-          price: priceProduct,
-          image: imgSrc,
-          quantity: 1,
-        };
+        console.log("Botón presionado");
 
         // Obtener el carrito actual del localStorage
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -143,7 +151,21 @@ export async function getStaticPaths() {
         localStorage.setItem("cart", JSON.stringify(cart));
 
         // Redirigir a la página de la cesta
-        window.location.href = "../cesta";
+        window.location.href = "./../cesta";
+      });
+
+      addToPaymentConfirmButton.addEventListener("click", () => {
+        const selectedProducts = [];
+
+        selectedProducts.push(product);
+
+        localStorage.setItem(
+          "selectedProducts",
+          JSON.stringify(selectedProducts)
+        );
+
+        // Redirigir a la página de la confirmar compra
+        window.location.href = "./../compras";
       });
     });
   </script>
