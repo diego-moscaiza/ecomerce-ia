@@ -43,7 +43,7 @@ if (Astro.request.method === "POST") {
 <Layout title="Registrarse">
   <div class="justify-center min-h-[calc(100vh-4rem)] pt-8">
     <div class="max-w-2xl mx-auto p-4 lg:p-6 md:p-5 sm:p-4">
-      <h1 class="text-4xl font-semibold mb-8 text-center">Crea tu cuenta</h1>
+      <h1 class="text-3xl font-bold mb-8 text-center">Crea tu cuenta</h1>
       <ol
         class="flex items-center w-full text-sm text-gray-500 font-medium sm:text-base mb-12"
       >
@@ -266,6 +266,11 @@ if (Astro.request.method === "POST") {
             </button>
           </div>
         </form>
+        <div class="mt-6 text-blue-500 text-center">
+          <a href="/iniciar-sesion" class="hover:underline"
+            >Deseo iniciar sesión</a
+          >
+        </div>
       </div>
     </div>
 
