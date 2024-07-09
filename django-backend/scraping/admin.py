@@ -8,24 +8,26 @@ class InfoPrendasAdmin(admin.ModelAdmin):
         "id",
         "nombre",
         "marca",
-        "precio",
-        "talla",
+        "precio_oferta",
+        "precio_normal",
         "genero",
-        "img",
+        "imagen",
     )
     search_fields = (
         "nombre",
         "marca",
-        "precio",
-        "talla",
+        "precio_oferta",
+        "precio_normal",
         "genero",
+        "imagen",
     )
     list_filter = (
         "nombre",
         "marca",
-        "precio",
-        "talla",
+        "precio_oferta",
+        "precio_normal",
         "genero",
+        "imagen",
     )
 
     actions = [dowload_excel, dowload_pdf]

@@ -1,9 +1,15 @@
 from rest_framework import serializers
-
 from .models import InfoPrendasScraping
 
 
-class RopaScrapingSerializer(serializers.ModelSerializer):
+class InfoPrendasScrapingSerializer(serializers.ModelSerializer):
     class Meta:
         model = InfoPrendasScraping
-        fields = "__all__"
+        fields = [
+            "nombre",
+            "marca",
+            "precio_oferta",
+            "precio_normal",
+            "genero",
+            "imagen",
+        ]
