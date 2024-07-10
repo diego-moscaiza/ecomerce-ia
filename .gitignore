@@ -80,3 +80,6 @@ django-backend/scraping/migrations/__pycache__/
 
 django-backend/cuenta/__pycache__/
 django-backend/cuenta/migrations/__pycache__/
+
+django-backend/entrega_productos/__pycache__/
+django-backend/entrega_productos/migrations/__pycache__/
