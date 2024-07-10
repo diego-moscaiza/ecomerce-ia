@@ -60,8 +60,8 @@ class ProductoAdmin(admin.ModelAdmin):
     actions = [dowload_excel, dowload_pdf]
 
 
-admin.site.register(Producto, ProductoAdmin)
-
 dowload_excel.short_description = "Descargar Reporte en Excel"
-
 dowload_pdf.short_description = "Descargar Reporte en PDF"
+
+
+admin.site.register(Producto, ProductoAdmin)
