@@ -50,11 +50,17 @@ def register(request):
 
 
 @api_view(["POST"])
-def login(request):
+def login_user(request):
     user_name = request.data.get("username")
     user_password = request.data.get("password")
 
     user = get_object_or_404(User, username=user_name)
+
+    if user.is_staff:
+        return Response(
+            {"Error": "No es un usuario válido"},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
     if not user.check_password(user_password):
         return Response(
@@ -67,6 +73,33 @@ def login(request):
     token, created = Token.objects.get_or_create(user=user)
     serializer = CuentaSerializer(instance=user)
 
+    return Response(
+        {"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK
+    )
+
+
+@api_view(["POST"])
+def login_admin(request):
+    admin_name = request.data.get("username")
+    admin_password = request.data.get("password")
+
+    admin_user = get_object_or_404(User, username=admin_name)
+
+    if not admin_user.is_staff:
+        return Response(
+            {"Error": "No tienes permiso para acceder a este sitio"},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+    else:
+        if not admin_user.check_password(admin_password):
+            return Response(
+                {"Error": "Usuario o contraseña inválida"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        admin_user.last_login = timezone.now()
+        admin_user.save()
+        token, created = Token.objects.get_or_create(user=admin_user)
+        serializer = CuentaSerializer(instance=admin_user)
     return Response(
         {"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK
     )
