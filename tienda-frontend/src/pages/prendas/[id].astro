@@ -11,6 +11,7 @@ interface Props {
   descripcion: string;
   marca: string;
   genero: string;
+  cantidad : number;
 }
 
 const { id } = Astro?.params;
@@ -75,6 +76,9 @@ export async function getStaticPaths() {
         </p>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">
           Género: <span>{producto.genero}</span>
+        </p>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">
+          Cantidad disponible: <span>{producto.cantidad}</span>
         </p>
         <p class="text-lg text-red-500 font-bold mb-4">
           Precio: S/. <span id="price-product">{producto.precio}</span>
