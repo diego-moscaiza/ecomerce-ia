@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
     numero_ruc = models.CharField(max_length=11)
@@ -9,3 +10,6 @@ class Proveedor(models.Model):
     telefono_secundario = models.CharField(max_length=9, blank=True)
     direccion = models.CharField(max_length=120)
     correo = models.CharField(max_length=30, blank=True)
+
+    def __str__(self):
+        return self.nombre

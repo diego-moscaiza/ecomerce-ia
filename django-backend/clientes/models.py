@@ -20,3 +20,6 @@ class Cliente(models.Model):
 
     def check_password(self, raw_password):
         return check_password(raw_password, self.contraseña)
+
+    def __str__(self):
+        return self.nombre

@@ -10,3 +10,6 @@ class InfoPrendasScraping(models.Model):
     genero = models.CharField(max_length=10, null=True, blank=True)
     imagen = models.CharField(max_length=120, null=True, blank=True)
     fecha_registro = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nombre

@@ -7,15 +7,12 @@ from .models import Subcategoria
 class SubcategoriaAdmin(admin.ModelAdmin):
     list_display = (
         "id_subcategoria",
-        "nombre_categoria",
+        "id_categoria",
         "nombre",
         "descripcion",
     )
-    search_fields = ("id_subcategoria", "id_categoria__nombre", "nombre", "descripcion")
+    search_fields = ("id_subcategoria", "id_categoria", "nombre", "descripcion")
     list_filter = ("id_categoria__nombre", "nombre")
-
-    def nombre_categoria(self, obj):
-        return obj.id_categoria.nombre
 
 
 admin.site.register(Subcategoria, SubcategoriaAdmin)

@@ -17,7 +17,7 @@ class ProductoAdmin(admin.ModelAdmin):
         "estado",
         "nombre_proveedor",
         "nombre_subcategoria",
-        "numero_estante",
+        # "numero_estante",
     )
     search_fields = (
         "nombre",

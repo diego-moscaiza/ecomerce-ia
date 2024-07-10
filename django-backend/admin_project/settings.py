@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "cuenta",
     "clientes",
     "productos",
+    "entrega_productos",
     "administrador",
     "metodo_pago",
     "categoria",
