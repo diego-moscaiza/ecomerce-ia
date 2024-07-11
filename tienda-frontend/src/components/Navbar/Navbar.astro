@@ -49,8 +49,14 @@ import DropdownNavbar2 from "./DropdownNavbar2.astro";
         <li>
           <NavButton title="Cesta de compra" link="/cesta" />
         </li>
+        <li>
+          <span>Bienvenido, {}!</span>
+        </li>
         <li class="" id="login-btn">
           <NavButton title="Iniciar Sesión" link="/iniciar-sesion" />
+        </li>
+        <li class="" id="logout-btn">
+          <NavButton title="Cerrar Sesión" link="./auth/signout" />
         </li>
         <li class="">
           <DropdownTheme />

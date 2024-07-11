@@ -1,47 +1,7 @@
 ---
-import axios from "axios";
 import Layout from "../layouts/MainLayout.astro";
 
-if (Astro.request.method === "POST") {
-  try {
-    const formData = await Astro.request.formData();
-    const nombre = formData.get("first_name");
-    const apellido = formData.get("last_name");
-    const correo = formData.get("email");
-    const usuario = formData.get("username");
-    const password = formData.get("password");
-    const apiUrl = "https://ecomerce-ia.onrender.com/api/cuentas/register/";
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        first_name: nombre,
-        last_name: apellido,
-        email: correo,
-        username: usuario,
-        password: password,
-      }),
-    });
-
-    const responseData = await response.json();
-
-    if (response.ok) {
-      console.log(`Se ha registrado exitosamente.`);
-      // Redirigir a otra página
-      return Astro.redirect("/iniciar-sesion");
-    } else {
-      console.error("NO Error al crea cuenta:", response.statusText);
-      console.log(response);
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("MAL Error al crea cuenta:", error.message);
-    }
-  }
-}
+//export const prerender = false;
 ---
 
 <Layout title="Registrarse">
@@ -51,7 +11,7 @@ if (Astro.request.method === "POST") {
     >
       <h1 class="text-3xl font-bold mb-8 text-center">Crea tu cuenta</h1>
       <div class="flex flex-col">
-        <form method="post">
+        <form action="/auth/register" method="post">
           <fieldset class="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-4">
             <div class="mb-4 md:mb-0">
               <label
