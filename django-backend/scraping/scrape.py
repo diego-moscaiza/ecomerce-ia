@@ -7,11 +7,11 @@ async def scrape_async():
         browser = None
 
         if await p.chromium.launch() is not None:
-            browser = await p.chromium.launch(headless=False)
+            browser = await p.chromium.launch(headless=True)
         elif await p.msedge.launch() is not None:
-            browser = await p.msedge.launch(headless=False)
+            browser = await p.msedge.launch(headless=True)
         elif await p.firefox.launch() is not None:
-            browser = await p.firefox.launch(headless=False)
+            browser = await p.firefox.launch(headless=True)
         else:
             print("No browser available")
             return None
