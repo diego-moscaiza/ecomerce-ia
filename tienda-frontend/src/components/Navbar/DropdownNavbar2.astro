@@ -1,10 +1,16 @@
+---
+const firstName = Astro.locals.first_name;
+const lastName = Astro.locals.last_name;
+const fullName = firstName + " " + lastName;
+---
+
 <button
   id="dropdownNavbarLink2"
   type="button"
   data-dropdown-toggle="dropdownNavbar2"
   class="inline-flex items-center justify-center w-full px-4 py-2 md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto md:dark:hover:text-blue-500 font-medium text-gray-900 dark:text-white rounded-lg cursor-pointer dark:hover:text-white"
 >
-  Usuario
+  {fullName}
   <svg
     class="w-2.5 h-2.5 ms-2.5"
     aria-hidden="true"
@@ -143,7 +149,7 @@
   </ul>
   <div class="py-1">
     <a
-      href="#"
+      href="/auth/signout"
       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
       >Cerrar sesión</a
     >
