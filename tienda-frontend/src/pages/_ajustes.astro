@@ -1,0 +1,296 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+---
+
+<Layout title="Ajustes">
+  <header>
+    <h2
+      class="mt-8 mb-8 text-3xl font-bold text-center tracking-tight text-gray-900 dark:text-white"
+    >
+      Ajustes del usuario
+    </h2>
+  </header>
+
+  <div
+    class="flex flex-col md:flex-row shadow-lg rounded-lg dark:bg-gray-800 from-gray-800 to-gray-900"
+  >
+    <!-- Secciones a la izquierda -->
+    <div class="w-1/4 md:w-1/5 p-4">
+      <ul class="list-none mb-0">
+        <li>
+          <a
+            href="#informacion"
+            class="block py-2 px-4 text-gray-700 dark:text-white hover:text-gray-900"
+          >
+            Información de la cuenta
+          </a>
+        </li>
+        <li>
+          <a
+            href="#direcciones"
+            class="block py-2 px-4 text-gray-700 dark:text-white hover:text-gray-900"
+          >
+            Direcciones de envío
+          </a>
+        </li>
+        <li>
+          <a
+            href="#pagos"
+            class="block py-2 px-4 text-gray-700 dark:text-white hover:text-gray-900"
+          >
+            Métodos de pago
+          </a>
+        </li>
+        <li>
+          <a
+            href="#contrasena"
+            class="block py-2 px-4 text-gray-700 dark:text-white hover:text-gray-900"
+          >
+            Cambiar contraseña
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contenido que cambia dependiendo de la sección -->
+    <div class="w-3/4 md:w-4/5 p-4">
+      <div id="informacion" class="">
+        <!-- Contenido de la sección Información de la cuenta -->
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Información de la cuenta
+        </h3>
+        <form>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label
+                for="nombre"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Nombre
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label
+                for="apellido"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Apellido
+              </label>
+              <input
+                type="text"
+                id="apellido"
+                name="apellido"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+              <label
+                for="email"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Correo electrónico
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+          </div>
+          <button
+            class="mt-4 px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Actualizar información
+          </button>
+        </form>
+      </div>
+      <div id="direcciones" class="hidden">
+        <!-- Contenido de la sección Direcciones de envío -->
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Direcciones de envío
+        </h3>
+        <form>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label
+                for="direccion"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Dirección
+              </label>
+              <input
+                type="text"
+                id="direccion"
+                name="direccion"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label
+                for="ciudad"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Ciudad
+              </label>
+              <input
+                type="text"
+                id="ciudad"
+                name="ciudad"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+              <label
+                for="codigo_postal"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Código postal
+              </label>
+              <input
+                type="text"
+                id="codigo_postal"
+                name="codigo_postal"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+          </div>
+          <button
+            class="mt-4 px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Agregar dirección
+          </button>
+        </form>
+      </div>
+
+      <div id="pagos" class="hidden">
+        <!-- Contenido de la sección Métodos de pago -->
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Métodos de pago
+        </h3>
+        <form>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label
+                for="tarjeta_credito"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Número de tarjeta de crédito
+              </label>
+              <input
+                type="text"
+                id="tarjeta_credito"
+                name="tarjeta_credito"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label
+                for="fecha_vencimiento"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Fecha de vencimiento
+              </label>
+              <input
+                type="text"
+                id="fecha_vencimiento"
+                name="fecha_vencimiento"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+              />
+            </div>
+          </div>
+          <button
+            class="mt-4 px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Agregar método de pago
+          </button>
+        </form>
+      </div>
+
+      <div id="contrasena" class="hidden">
+        <!-- Contenido de la sección Cambiar contraseña -->
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Cambiar contraseña
+        </h3>
+        <form>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label
+                for="contrasena_actual"
+                class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+              >
+                Contraseña actual
+              </label>
+              <input
+                type="password"
+                id="contrasena_actual"
+                name="contrasena_actual"
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px"
+              />
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label
+              for="nueva_contrasena"
+              class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+            >
+              Nueva contraseña
+            </label>
+            <input
+              type="password"
+              id="nueva_contrasena"
+              name="nueva_contrasena"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+        </form>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label
+              for="confirmar_contrasena"
+              class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+            >
+              Confirmar nueva contraseña
+            </label>
+            <input
+              type="password"
+              id="confirmar_contrasena"
+              name="confirmar_contrasena"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+            />
+          </div>
+        </div>
+        <button
+          class="mt-4 px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+        >
+          Cambiar contraseña
+        </button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const secciones = document.querySelectorAll("div[id]");
+  const opciones = document.querySelectorAll("ul li a");
+
+  opciones.forEach((opcion) => {
+    opcion.addEventListener("click", (e) => {
+      const idSeccion = opcion.getAttribute("href").replace("#", "");
+      secciones.forEach((seccion) => {
+        seccion.classList.add("hidden");
+      });
+      document.getElementById(idSeccion).classList.remove("hidden");
+    });
+  });
+</script>

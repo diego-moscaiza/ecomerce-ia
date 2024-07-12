@@ -1,8 +1,8 @@
 import { defineMiddleware } from "astro:middleware";
 import micromatch from "micromatch";
 
-const publicRoutes = ["/", "/prendas", "/iniciar-sesion", "/registrarse"];
-const protectedRoutes = ["/cesta", "/compras"];
+const publicRoutes = ["/", "404", "/prendas", "/iniciar-sesion", "/registrarse"];
+const protectedRoutes = ["/cesta", "/compras", "/ajustes"];
 const redirectRoutes = ["/iniciar-sesion", "/registrarse"];
 
 export const onRequest = defineMiddleware(
