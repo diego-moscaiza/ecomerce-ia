@@ -4,36 +4,47 @@ import json
 
 async def scrape_async():
     async with async_playwright() as p:
-        browser = None
+        browser = await p.chromium.launch(headless=False)
+        browser1 = await p.chromium.launch(channel="msedge", headless=False)
+        browser2 = await p.firefox.launch(headless=False)
+        browser3 = await p.webkit.launch(headless=False)
 
-        if await p.chromium.launch() is not None:
-            browser = await p.chromium.launch(headless=True)
-        elif await p.msedge.launch() is not None:
-            browser = await p.msedge.launch(headless=True)
-        elif await p.firefox.launch() is not None:
-            browser = await p.firefox.launch(headless=True)
-        else:
-            print("No browser available")
-            return None
+        page = await browser.new_page()
 
-        context = await browser.new_context()
-        page = await context.new_page()
-        link: str = "https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco"
-        await page.goto(link)
+        number_page = 3
+        page_url = f"https://simple.ripley.com.pe/calzado/zapatillas/urbanas?s=mdco&page={number_page}"
+        await page.goto(page_url)
 
-        etiqueta_inicial: str = ".catalog-product-border a"
+        scroll_delay = 500  # 500ms
+        page_height = await page.evaluate("document.body.scrollHeight")
+        scroll_position = 0
 
-        # Obtener todos los elementos con la clase "catalog-product-details"
+        while scroll_position < page_height:
+            await page.evaluate(f"window.scrollTo(0, {scroll_position})")
+            await page.wait_for_timeout(scroll_delay)
+            scroll_position += 500
+
+        selectors = {
+            "etiquetaPrincipal": "#product-border .catalog-product-item",
+            "selectorNombre": ".catalog-product-details .catalog-product-details__name",
+            "selectorMarca": ".catalog-product-details .catalog-product-details__logo-container .brand-logo span",
+            "selectorPrecioOferta": ".catalog-product-details .catalog-product-details__prices .catalog-prices__list .catalog-prices__offer-price",
+            "selectorPrecioNormal": ".catalog-product-details .catalog-product-details__prices .catalog-prices__list .catalog-prices__list-price",
+            "selectorImagen": ".proportional-image-wrapper .images-preview .images-preview-item img",
+        }
+
         prendas = await page.eval_on_selector_all(
-            f"{etiqueta_inicial}",
-            """
-            (products) => products.map((product) => {
-                const nombre = product.querySelector(".catalog-product-details .catalog-product-details__name").innerText.trim();
-                const marca = product.querySelector(".catalog-product-details .catalog-product-details__logo-container .brand-logo span").innerText.trim();
-                const precio = product.querySelector(".catalog-product-details .catalog-product-details__prices .catalog-prices .catalog-prices__list .catalog-prices__offer-price").innerText.trim();
-                const img = Array.from(product.querySelectorAll(".proportional-image-wrapper .images-preview .images-preview-item.is-active img")).map(img => img.src).toString();
-                return { nombre, marca, precio, img };
-            })
+            selectors["etiquetaPrincipal"],
+            f"""
+            (products) => products.map((product) => {{
+                const nombre = product.querySelector('{selectors["selectorNombre"]}')?.innerText.trim() ?? '';
+                const marca = product.querySelector('{selectors["selectorMarca"]}')?.innerText.trim() ?? '';
+                const precio_oferta = product.querySelector('{selectors["selectorPrecioOferta"]}')?.innerText.trim() ?? '';
+                const precio_normal = product.querySelector('{selectors["selectorPrecioNormal"]}')?.innerText.trim() ?? '';
+                const imagen = product.querySelector('{selectors["selectorImagen"]}')?.src ?? '';
+                const genero = nombre.toUpperCase().includes("HOMBRE") ? "Hombre" : nombre.toUpperCase().includes("MUJER") ? "Mujer" : nombre.toUpperCase().includes("NIÑO") ? "Niño" : nombre.toUpperCase().includes("NIÑA") ? "Niña" : nombre.toUpperCase().includes("UNISEX") ? "Unisex" : "";
+                return {{ nombre, marca, precio_oferta, precio_normal, genero, imagen }};
+            }})
             """,
         )
 
