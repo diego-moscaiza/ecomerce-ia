@@ -3,7 +3,7 @@ from django.db import models
 
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
-    id_proveedor = models.ForeignKey("proveedor.Proveedor", on_delete=models.CASCADE)
+    id_proveedor = models.ForeignKey("proveedor.Proveedor", on_delete=models.SET_NULL, null=True)
     id_subcategoria = models.ForeignKey(
         "categoria.Subcategoria", on_delete=models.SET_NULL, null=True
     )
