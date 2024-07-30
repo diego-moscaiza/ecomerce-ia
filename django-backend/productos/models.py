@@ -5,10 +5,10 @@ class Producto(models.Model):
     id_producto = models.AutoField(primary_key=True)
     id_proveedor = models.ForeignKey("proveedor.Proveedor", on_delete=models.CASCADE)
     id_subcategoria = models.ForeignKey(
-        "subcategoria.Subcategoria", on_delete=models.CASCADE
+        "categoria.Subcategoria", on_delete=models.SET_NULL, null=True
     )
     id_estante = models.ForeignKey(
-        "estante.Estante", on_delete=models.CASCADE, null=True, blank=True
+        "estante.Estante", on_delete=models.SET_NULL, null=True
     )
     nombre = models.CharField(max_length=50, null=True, blank=True)
     marca = models.CharField(max_length=20, null=True, blank=True)
