@@ -16,7 +16,7 @@ class SubcategoriaAdmin(admin.ModelAdmin):
         "descripcion",
     )
     search_fields = ("id_subcategoria", "id_categoria", "nombre", "descripcion")
-    list_filter = ("id_categoria__nombre", "nombre")
+    list_filter = ("id_categoria", "nombre")
 
 
 admin.site.register(Categoria, CategoriaAdmin)

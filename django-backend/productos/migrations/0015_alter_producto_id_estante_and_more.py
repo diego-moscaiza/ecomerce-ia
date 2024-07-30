@@ -7,9 +7,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('estante', '0001_initial'),
+        ('inventario', '0001_initial'),
         ('productos', '0014_alter_producto_id_estante_and_more'),
-        ('subcategoria', '0001_initial'),
+        ('categoria', '0001_initial'),
     ]
 
     operations = [
@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='producto',
             name='id_subcategoria',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='subcategoria.subcategoria'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='categoria.subcategoria'),
         ),
     ]

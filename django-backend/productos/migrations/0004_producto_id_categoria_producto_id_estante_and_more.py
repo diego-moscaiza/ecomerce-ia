@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('categoria', '0004_alter_categoria_descripcion'),
-        ('estante', '0001_initial'),
+        ('inventario', '0001_initial'),
         ('productos', '0003_alter_producto_descripcion'),
         ('proveedor', '0003_alter_proveedor_correo_alter_proveedor_direccion_and_more'),
     ]
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='producto',
             name='id_estante',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='estante.estante'),
+            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='inventario.estante'),
         ),
         migrations.AddField(
             model_name='producto',

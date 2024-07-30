@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('categoria', '0004_alter_categoria_descripcion'),
         ('productos', '0008_remove_producto_id_categoria_producto_genero_and_more'),
-        ('subcategoria', '0001_initial'),
+        ('categoria', '0001_initial'),
     ]
 
     operations = [
@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='producto',
             name='id_subcategoria',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='subcategoria.subcategoria'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='categoria.subcategoria'),
         ),
     ]

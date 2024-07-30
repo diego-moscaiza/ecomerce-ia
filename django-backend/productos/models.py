@@ -8,7 +8,7 @@ class Producto(models.Model):
         "categoria.Subcategoria", on_delete=models.SET_NULL, null=True
     )
     id_estante = models.ForeignKey(
-        "estante.Estante", on_delete=models.SET_NULL, null=True
+        "inventario.Estante", on_delete=models.SET_NULL, null=True
     )
     nombre = models.CharField(max_length=50, null=True, blank=True)
     marca = models.CharField(max_length=20, null=True, blank=True)

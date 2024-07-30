@@ -7,20 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('estante', '0001_initial'),
+        ('inventario', '0001_initial'),
         ('productos', '0017_alter_producto_id_subcategoria'),
-        ('subcategoria', '0001_initial'),
+        ('categoria', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='producto',
             name='id_estante',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='estante.estante'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='inventario.estante'),
         ),
         migrations.AlterField(
             model_name='producto',
             name='id_subcategoria',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='subcategoria.subcategoria'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='categoria.subcategoria'),
         ),
     ]
